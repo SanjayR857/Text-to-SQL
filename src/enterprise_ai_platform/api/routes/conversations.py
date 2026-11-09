@@ -27,11 +27,11 @@ from enterprise_ai_platform.api.schemas.message import (
     MessageResponse,
     MessageSubmitRequest,
 )
-from enterprise_ai_platform.application.chat.conversation_service import (
+from enterprise_ai_platform.application.conversations.conversation_service import (
     ConversationService,
 )
-from enterprise_ai_platform.application.chat.message_service import MessageService
-from enterprise_ai_platform.application.chat.streaming_orchestrator import (
+from enterprise_ai_platform.application.conversations.message_service import MessageService
+from enterprise_ai_platform.application.conversations.streaming_orchestrator import (
     StreamingOrchestrator,
 )
 

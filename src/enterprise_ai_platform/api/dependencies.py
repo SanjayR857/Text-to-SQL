@@ -8,13 +8,13 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from enterprise_ai_platform.domain.identity.user import RequestIdentity, UserContext
 
-from enterprise_ai_platform.application.chat.context_service import ContextService
-from enterprise_ai_platform.application.chat.conversation_service import (
+from enterprise_ai_platform.application.conversations.context_service import ContextService
+from enterprise_ai_platform.application.conversations.conversation_service import (
     ConversationService,
 )
-from enterprise_ai_platform.application.chat.feedback_service import FeedbackService
-from enterprise_ai_platform.application.chat.message_service import MessageService
-from enterprise_ai_platform.application.chat.streaming_orchestrator import (
+from enterprise_ai_platform.application.conversations.feedback_service import FeedbackService
+from enterprise_ai_platform.application.conversations.message_service import MessageService
+from enterprise_ai_platform.application.conversations.streaming_orchestrator import (
     StreamingOrchestrator,
 )
 from enterprise_ai_platform.core.config import get_settings

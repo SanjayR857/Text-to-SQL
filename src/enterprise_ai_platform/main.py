@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from enterprise_ai_platform.lifespan import lifespan
 from enterprise_ai_platform.api import exception_handlers
 from enterprise_ai_platform.api.middleware import request_id, logging as log_middleware, security_headers
-from enterprise_ai_platform.api.routes import health, chat, auth, documents, databases, conversations, admin
+from enterprise_ai_platform.api.routes import health, auth, conversations, feedback
 from enterprise_ai_platform.core.config import get_settings, settings
 
 app = FastAPI(
@@ -43,11 +43,8 @@ app.add_middleware(request_id.RequestIdMiddleware)
 # ---------------------------------------------------------------------------
 app.include_router(health.router, prefix="/api/v1")
 app.include_router(auth.router, prefix="/api/v1")
-app.include_router(chat.router, prefix="/api/v1")
-app.include_router(documents.router, prefix="/api/v1")
-app.include_router(databases.router, prefix="/api/v1")
 app.include_router(conversations.router, prefix="/api/v1")
-app.include_router(admin.router, prefix="/api/v1")
+app.include_router(feedback.router, prefix="/api/v1")
 
 # ---------------------------------------------------------------------------
 # Exception handlers

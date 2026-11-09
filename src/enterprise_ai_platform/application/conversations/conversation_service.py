@@ -8,7 +8,7 @@ from datetime import datetime
 from uuid import UUID
 
 from enterprise_ai_platform.domain.conversations.exceptions import ConversationNotFoundError
-from enterprise_ai_platform.infrastructure.database.models.chat import Conversation
+from enterprise_ai_platform.infrastructure.database.models.conversation import Conversation
 from enterprise_ai_platform.infrastructure.database.repositories.conversation_repo import (
     ConversationRepository,
 )

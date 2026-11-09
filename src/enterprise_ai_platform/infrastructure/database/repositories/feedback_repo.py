@@ -10,7 +10,7 @@ from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from enterprise_ai_platform.infrastructure.database.models.chat import MessageFeedback
+from enterprise_ai_platform.infrastructure.database.models.conversation import MessageFeedback
 
 
 class FeedbackRepository:

@@ -9,7 +9,7 @@ from enterprise_ai_platform.domain.conversations.exceptions import (
     ConversationNotFoundError,
     MessageNotFoundError,
 )
-from enterprise_ai_platform.infrastructure.database.models.chat import Message
+from enterprise_ai_platform.infrastructure.database.models.conversation import Message
 from enterprise_ai_platform.infrastructure.database.repositories.conversation_repo import (
     ConversationRepository,
 )

@@ -9,7 +9,7 @@ import pytest
 from sqlalchemy import select
 
 from enterprise_ai_platform.api.dependencies import DEV_USER_ID
-from enterprise_ai_platform.infrastructure.database.models.chat import (
+from enterprise_ai_platform.infrastructure.database.models.conversation import (
     Conversation,
     Message,
 )

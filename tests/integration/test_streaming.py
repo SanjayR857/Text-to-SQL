@@ -31,7 +31,7 @@ from enterprise_ai_platform.domain.conversations.protocols import (
 from enterprise_ai_platform.infrastructure.database.connection_manager import (
     close_engine,
 )
-from enterprise_ai_platform.infrastructure.database.models.chat import (
+from enterprise_ai_platform.infrastructure.database.models.conversation import (
     Conversation,
     Message,
 )
@@ -318,7 +318,7 @@ async def test_generator_failure_handling():
 @pytest.mark.asyncio
 async def test_client_disconnect_saves_partial_content():
     """Verify that client cancellation preserves partial tokens and releases lock."""
-    from enterprise_ai_platform.application.chat.streaming_orchestrator import (
+    from enterprise_ai_platform.application.conversations.streaming_orchestrator import (
         StreamingOrchestrator,
     )
 
@@ -372,7 +372,7 @@ async def test_client_disconnect_saves_partial_content():
 @pytest.mark.asyncio
 async def test_timeout_handling():
     """Verify that exceeding global timeout interrupts generation and emits timeout error event."""
-    from enterprise_ai_platform.application.chat.streaming_orchestrator import (
+    from enterprise_ai_platform.application.conversations.streaming_orchestrator import (
         StreamingOrchestrator,
     )
 
@@ -434,7 +434,7 @@ async def test_timeout_handling():
 @pytest.mark.asyncio
 async def test_keepalive_emitted_during_delay():
     """Verify that keepalive comment lines are emitted when token generation has latency."""
-    from enterprise_ai_platform.application.chat.streaming_orchestrator import (
+    from enterprise_ai_platform.application.conversations.streaming_orchestrator import (
         StreamingOrchestrator,
     )
 
@@ -510,10 +510,10 @@ async def test_background_titling_execution():
 @pytest.mark.asyncio
 async def test_background_summarization_execution():
     """Verify that background summarization creates a new version when threshold is met."""
-    from enterprise_ai_platform.application.chat.streaming_orchestrator import (
+    from enterprise_ai_platform.application.conversations.streaming_orchestrator import (
         StreamingOrchestrator,
     )
-    from enterprise_ai_platform.infrastructure.database.models.chat import (
+    from enterprise_ai_platform.infrastructure.database.models.conversation import (
         ConversationSummary,
     )
     from enterprise_ai_platform.infrastructure.streaming.mock_ai_generator import (

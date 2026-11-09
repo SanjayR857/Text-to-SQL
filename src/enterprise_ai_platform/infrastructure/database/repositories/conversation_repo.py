@@ -11,7 +11,7 @@ from uuid import UUID
 from sqlalchemy import desc, func, nulls_last, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from enterprise_ai_platform.infrastructure.database.models.chat import Conversation, Message
+from enterprise_ai_platform.infrastructure.database.models.conversation import Conversation, Message
 
 
 class ConversationRepository:

@@ -11,7 +11,7 @@ from enterprise_ai_platform.domain.conversations.exceptions import (
     InvalidFeedbackError,
     MessageNotFoundError,
 )
-from enterprise_ai_platform.infrastructure.database.models.chat import MessageFeedback
+from enterprise_ai_platform.infrastructure.database.models.conversation import MessageFeedback
 from enterprise_ai_platform.infrastructure.database.repositories.conversation_repo import (
     ConversationRepository,
 )

@@ -2,7 +2,7 @@
 SQLAlchemy ORM models package.
 """
 from enterprise_ai_platform.infrastructure.database.base import Base
-from enterprise_ai_platform.infrastructure.database.models.chat import (
+from enterprise_ai_platform.infrastructure.database.models.conversation import (
     Conversation,
     ConversationSummary,
     Message,
