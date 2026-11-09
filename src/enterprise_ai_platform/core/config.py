@@ -11,9 +11,9 @@ Field naming convention:
     because case_sensitive=False.  Example: database_url ← DATABASE_URL in .env
 """
 from functools import lru_cache
-from typing import Literal
+from typing import Literal, Self
 
-from pydantic import Field, SecretStr
+from pydantic import Field, SecretStr, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -33,6 +33,17 @@ class Settings(BaseSettings):
     app_version: str = "1.0.0"
     environment: Literal["development", "staging", "production", "testing"] = "development"
     debug: bool = False
+    # Development authentication header enablement (x-dev-user-email): strictly forbidden in production
+    allow_dev_auth: bool = False
+
+    @model_validator(mode="after")
+    def validate_dev_auth_safety(self) -> Self:
+        """Enforce that development authentication is strictly forbidden in production."""
+        if self.is_production and self.allow_dev_auth:
+            raise ValueError(
+                "Security violation: ALLOW_DEV_AUTH must not be enabled in production environments."
+            )
+        return self
 
     # -------------------------------------------------------------------------
     # Primary Database
@@ -94,6 +105,14 @@ class Settings(BaseSettings):
     @property
     def is_development(self) -> bool:
         return self.environment == "development"
+
+    @property
+    def APP_NAME(self) -> str:
+        return self.app_name
+
+    @property
+    def APP_VERSION(self) -> str:
+        return self.app_version
 
 
 @lru_cache

@@ -3,8 +3,10 @@ FastAPI dependency injection providers.
 """
 from uuid import UUID
 
-from fastapi import Depends, Header, HTTPException, status
+from fastapi import Depends, Header, HTTPException, Request, status
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
+
+from enterprise_ai_platform.domain.identity.user import RequestIdentity
 
 from enterprise_ai_platform.application.chat.context_service import ContextService
 from enterprise_ai_platform.application.chat.conversation_service import (
@@ -45,6 +47,24 @@ from enterprise_ai_platform.infrastructure.streaming.mock_ai_generator import (
 
 # Fallback development user UUID
 DEV_USER_ID = UUID("00000000-0000-0000-0000-000000000001")
+
+
+def get_current_identity(request: Request) -> RequestIdentity:
+    """
+    Extract authenticated RequestIdentity from request.state.
+
+    Populated upstream by AuthenticationMiddleware.
+
+    Raises:
+        HTTPException: 401 if request identity has not been resolved.
+    """
+    identity: RequestIdentity | None = getattr(request.state, "identity", None)
+    if identity is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authentication required: request identity not established.",
+        )
+    return identity
 
 
 async def get_current_user_id(
