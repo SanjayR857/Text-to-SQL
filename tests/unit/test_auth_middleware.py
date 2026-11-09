@@ -124,13 +124,13 @@ async def test_auth_success_with_dev_header(dev_settings: Settings):
     ) as client:
         response = await client.get(
             "/api/v1/protected",
-            headers={DEV_USER_EMAIL_HEADER: "  Lead.User@Enterprise.AI  "},
+            headers={DEV_USER_EMAIL_HEADER: "  Tech.Lead1@Enterprise.AI  "},
         )
         assert response.status_code == status.HTTP_200_OK
         data = response.json()
-        assert data["email"] == "lead.user@enterprise.ai"
+        assert data["email"] == "tech.lead1@enterprise.ai"
         assert data["auth_method"] == "dev_header"
-        assert data["state_user_email"] == "lead.user@enterprise.ai"
+        assert data["state_user_email"] == "tech.lead1@enterprise.ai"
 
 
 @pytest.mark.asyncio
@@ -143,11 +143,11 @@ async def test_auth_success_via_fastapi_dependency(dev_settings: Settings):
     ) as client:
         response = await client.get(
             "/api/v1/identity-via-dep",
-            headers={DEV_USER_EMAIL_HEADER: "chief@enterprise.ai"},
+            headers={DEV_USER_EMAIL_HEADER: "chief.ai@enterprise.ai"},
         )
         assert response.status_code == status.HTTP_200_OK
         data = response.json()
-        assert data["email"] == "chief@enterprise.ai"
+        assert data["email"] == "chief.ai@enterprise.ai"
         assert data["auth_method"] == "dev_header"
 
 
