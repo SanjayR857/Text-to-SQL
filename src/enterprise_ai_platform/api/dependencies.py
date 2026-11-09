@@ -18,7 +18,7 @@ from enterprise_ai_platform.application.chat.streaming_orchestrator import (
     StreamingOrchestrator,
 )
 from enterprise_ai_platform.core.config import get_settings
-from enterprise_ai_platform.domain.chat.protocols import (
+from enterprise_ai_platform.domain.conversations.protocols import (
     AIGeneratorProtocol,
     SummaryGeneratorProtocol,
     TitleGeneratorProtocol,

@@ -4,7 +4,7 @@ Default / mock AI generator implementations for testing and development.
 import asyncio
 from collections.abc import AsyncIterator
 
-from enterprise_ai_platform.domain.chat.protocols import (
+from enterprise_ai_platform.domain.conversations.protocols import (
     ContextMessage,
     GenerationContext,
     StreamChunk,

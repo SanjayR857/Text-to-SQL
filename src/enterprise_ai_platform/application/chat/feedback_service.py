@@ -6,7 +6,7 @@ and conversation ownership enforcement.
 """
 from uuid import UUID
 
-from enterprise_ai_platform.domain.chat.exceptions import (
+from enterprise_ai_platform.domain.conversations.exceptions import (
     ConversationNotFoundError,
     InvalidFeedbackError,
     MessageNotFoundError,

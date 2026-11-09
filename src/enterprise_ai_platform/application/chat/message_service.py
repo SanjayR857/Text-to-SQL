@@ -5,7 +5,7 @@ Coordinates message history retrieval, message lookups, and ownership validation
 """
 from uuid import UUID
 
-from enterprise_ai_platform.domain.chat.exceptions import (
+from enterprise_ai_platform.domain.conversations.exceptions import (
     ConversationNotFoundError,
     MessageNotFoundError,
 )

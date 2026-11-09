@@ -6,8 +6,8 @@ for downstream external AI generation engines.
 """
 from uuid import UUID
 
-from enterprise_ai_platform.domain.chat.exceptions import ConversationNotFoundError
-from enterprise_ai_platform.domain.chat.protocols import ContextMessage, GenerationContext
+from enterprise_ai_platform.domain.conversations.exceptions import ConversationNotFoundError
+from enterprise_ai_platform.domain.conversations.protocols import ContextMessage, GenerationContext
 from enterprise_ai_platform.infrastructure.database.repositories.conversation_repo import (
     ConversationRepository,
 )

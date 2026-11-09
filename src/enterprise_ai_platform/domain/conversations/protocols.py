@@ -1,8 +1,5 @@
 """
-Protocols and structural typing contracts for external AI integrations.
-
-Completely decouples the Chat module from specific model providers (OpenAI, Anthropic,
-local LLMs, LangGraph, or RAG engines).
+Protocols and structural typing contracts for conversation AI integrations.
 """
 from collections.abc import AsyncIterator
 from typing import Protocol
@@ -12,9 +9,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 
 class StreamChunk(BaseModel):
-    """
-    Atomic chunk emitted by the external AI generator during streaming.
-    """
+    """Atomic chunk emitted by the external AI generator during streaming."""
 
     model_config = ConfigDict(frozen=True)
 
@@ -33,9 +28,7 @@ class StreamChunk(BaseModel):
 
 
 class ContextMessage(BaseModel):
-    """
-    Prior message representation passed in context assembly.
-    """
+    """Prior message representation passed in context assembly."""
 
     model_config = ConfigDict(frozen=True)
 
@@ -45,10 +38,7 @@ class ContextMessage(BaseModel):
 
 
 class GenerationContext(BaseModel):
-    """
-    Historical context package assembled for the external generation engine.
-    Strictly contains messages prior to the current user prompt.
-    """
+    """Historical context package assembled for the external generation engine."""
 
     model_config = ConfigDict(frozen=True)
 
@@ -62,48 +52,36 @@ class GenerationContext(BaseModel):
 
 
 class AIGeneratorProtocol(Protocol):
-    """
-    Interface that any downstream AI generation engine must implement.
-    """
+    """Interface that any downstream AI generation engine must implement."""
 
     async def generate_stream(
         self,
         context: GenerationContext,
         prompt: str,
     ) -> AsyncIterator[StreamChunk]:
-        """
-        Generate and yield streaming token chunks in response to user prompt.
-        """
+        """Generate and yield streaming token chunks in response to user prompt."""
         ...
 
 
 class TitleGeneratorProtocol(Protocol):
-    """
-    Interface for asynchronous conversation titling.
-    """
+    """Interface for asynchronous conversation titling."""
 
     async def generate_title(
         self,
         user_prompt: str,
         assistant_response: str,
     ) -> str:
-        """
-        Generate a concise, contextual conversation title.
-        """
+        """Generate a concise, contextual conversation title."""
         ...
 
 
 class SummaryGeneratorProtocol(Protocol):
-    """
-    Interface for asynchronous conversation summarization.
-    """
+    """Interface for asynchronous conversation summarization."""
 
     async def generate_summary(
         self,
         existing_summary: str | None,
         new_messages: list[ContextMessage],
     ) -> str:
-        """
-        Generate or update a rolling summary from historical messages.
-        """
+        """Generate or update a rolling summary from historical messages."""
         ...

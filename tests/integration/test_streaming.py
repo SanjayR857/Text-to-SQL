@@ -24,7 +24,7 @@ from enterprise_ai_platform.api.dependencies import (
 from enterprise_ai_platform.api.exception_handlers import register
 from enterprise_ai_platform.api.routes.conversations import router as conv_router
 from enterprise_ai_platform.api.routes.feedback import router as feedback_router
-from enterprise_ai_platform.domain.chat.protocols import (
+from enterprise_ai_platform.domain.conversations.protocols import (
     GenerationContext,
     StreamChunk,
 )

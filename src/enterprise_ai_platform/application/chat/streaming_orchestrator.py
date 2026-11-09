@@ -14,12 +14,12 @@ from uuid import UUID, uuid4
 from fastapi import BackgroundTasks
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from enterprise_ai_platform.domain.chat.exceptions import (
+from enterprise_ai_platform.domain.conversations.exceptions import (
     ConversationNotFoundError,
     DuplicateMessageError,
     GenerationConflictError,
 )
-from enterprise_ai_platform.domain.chat.protocols import (
+from enterprise_ai_platform.domain.conversations.protocols import (
     AIGeneratorProtocol,
     ContextMessage,
     GenerationContext,
