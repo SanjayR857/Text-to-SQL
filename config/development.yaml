@@ -1,0 +1,18 @@
+﻿environment: development
+debug: true
+
+database:
+  pool_size: 10
+  max_overflow: 20
+  echo_sql: true
+
+security:
+  enable_rls: true
+  enable_ast_validation: true
+  allowed_sql_operations:
+    - SELECT
+
+llm:
+  model_name: gpt-4o
+  temperature: 0.0
+  max_tokens: 2000

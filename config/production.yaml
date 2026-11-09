@@ -1,0 +1,15 @@
+﻿app:
+  debug: false
+  log_level: WARNING
+
+database:
+  pool_size: 20
+  max_overflow: 40
+
+langgraph:
+  checkpointer: postgres
+  max_concurrency: 16
+
+llamaindex:
+  chunk_size: 512
+  chunk_overlap: 64

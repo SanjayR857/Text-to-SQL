@@ -1,0 +1,16 @@
+﻿services:
+  postgres:
+    image: pgvector/pgvector:0.8.7-pg18-trixie
+    container_name: postgres-vector
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: vectordb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/docker
+    restart: unless-stopped
+
+volumes:
+  pgdata:
