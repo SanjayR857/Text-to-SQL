@@ -114,6 +114,10 @@ class Settings(BaseSettings):
     def APP_VERSION(self) -> str:
         return self.app_version
 
+    @property
+    def cors_origins(self) -> list[str]:
+        return ["*"]
+
 
 @lru_cache
 def get_settings() -> Settings:
