@@ -1,4 +1,4 @@
-﻿"""
+"""
 Centralized OpenTelemetry tracing and metrics observability.
 
 Provides:

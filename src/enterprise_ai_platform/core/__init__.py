@@ -1,4 +1,4 @@
-﻿"""
+"""
 Shared cross-cutting concerns: configuration, logging, exceptions, and telemetry.
 """
 from enterprise_ai_platform.core.config import Settings, get_settings
