@@ -13,7 +13,7 @@ from text_to_sql import (
     DatabaseSchemaEntity,
     TableMetadataEntity,
 )
-from text_to_sql.introspector import (
+from text_to_sql.schema.introspector import (
     PostgresSchemaIntrospector,
 )
 

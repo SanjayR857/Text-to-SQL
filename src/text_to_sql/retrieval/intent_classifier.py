@@ -6,7 +6,7 @@ ENTITY_ONLY retrieval, or HYBRID_BOTH retrieval to optimize latency and token co
 """
 import re
 
-from text_to_sql.entity_document import (
+from text_to_sql.vector_store.entity_document import (
     RetrievalIntent,
 )
 

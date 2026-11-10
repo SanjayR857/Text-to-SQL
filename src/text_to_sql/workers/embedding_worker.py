@@ -9,25 +9,25 @@ from typing import Sequence
 from sqlalchemy.ext.asyncio import AsyncEngine
 import structlog
 
-from text_to_sql.vector_store_interfaces import IVectorStore
-from text_to_sql.catalog import (
+from text_to_sql.vector_store.vector_store_interfaces import IVectorStore
+from text_to_sql.schema.catalog import (
     EnterpriseMetadataCatalog,
 )
-from text_to_sql.document_builder import (
+from text_to_sql.vector_store.document_builder import (
     SchemaDocumentBuilder,
 )
-from text_to_sql.schema_document import (
+from text_to_sql.vector_store.schema_document import (
     SchemaDocument,
     SchemaDocumentType,
 )
-from text_to_sql.schema_events import (
+from text_to_sql.schema.schema_events import (
     SchemaChangeEvent,
     SchemaChangeType,
 )
 from core.database import (
     get_async_engine,
 )
-from text_to_sql.introspector import (
+from text_to_sql.schema.introspector import (
     PostgresSchemaIntrospector,
 )
 

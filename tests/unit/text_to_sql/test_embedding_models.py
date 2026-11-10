@@ -12,7 +12,7 @@ from sqlalchemy.dialects import postgresql
 from sqlalchemy.schema import CreateIndex, CreateTable
 
 from core.database import Base
-from text_to_sql.models import (
+from models.text_to_sql import (
     EntityEmbeddingModel,
     SchemaEmbeddingModel,
 )

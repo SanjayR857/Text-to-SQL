@@ -13,15 +13,15 @@ from sqlalchemy import delete, func, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncEngine
 
-from text_to_sql.vector_store_interfaces import (
+from text_to_sql.vector_store.vector_store_interfaces import (
     IVectorStore,
     VectorSearchResult,
 )
-from text_to_sql.schema_document import (
+from text_to_sql.vector_store.schema_document import (
     SchemaDocument,
     SchemaDocumentType,
 )
-from text_to_sql.models import (
+from models.text_to_sql import (
     SchemaEmbeddingModel,
 )
 from providers.embeddings import AzureOpenAIEmbeddings

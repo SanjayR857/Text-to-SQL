@@ -22,7 +22,7 @@ from text_to_sql import (
     SchemaChangeType,
     TableMetadataEntity,
 )
-from text_to_sql.entity_worker import (
+from text_to_sql.workers.entity_worker import (
     EntityEmbeddingWorker,
     _safe_format,
 )

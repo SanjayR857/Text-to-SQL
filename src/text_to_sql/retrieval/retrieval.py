@@ -9,18 +9,18 @@ from typing import Sequence
 from auth.access_context import (
     ResolvedAccessContext,
 )
-from text_to_sql.retriever_interface import ISchemaRetriever
-from text_to_sql.vector_store_interfaces import (
+from text_to_sql.retrieval.retriever_interface import ISchemaRetriever
+from text_to_sql.vector_store.vector_store_interfaces import (
     IVectorStore,
     VectorSearchResult,
 )
-from text_to_sql.authorized_schema import (
+from text_to_sql.schema.authorized_schema import (
     AuthorizedSchemaService,
 )
-from text_to_sql.catalog import (
+from text_to_sql.schema.catalog import (
     EnterpriseMetadataCatalog,
 )
-from text_to_sql.schema_document import (
+from text_to_sql.vector_store.schema_document import (
     SchemaDocumentType,
 )
 

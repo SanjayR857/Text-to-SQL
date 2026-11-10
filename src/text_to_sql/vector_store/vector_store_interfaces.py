@@ -9,7 +9,7 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from text_to_sql.schema_document import (
+from text_to_sql.vector_store.schema_document import (
     SchemaDocument,
     SchemaDocumentType,
 )

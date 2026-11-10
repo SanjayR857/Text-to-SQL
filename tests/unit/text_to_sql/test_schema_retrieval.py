@@ -12,7 +12,7 @@ from uuid import uuid4
 import pytest
 
 from auth import PolicyResolver
-from text_to_sql.vector_store_interfaces import (
+from text_to_sql.vector_store.vector_store_interfaces import (
     IVectorStore,
     VectorSearchResult,
 )

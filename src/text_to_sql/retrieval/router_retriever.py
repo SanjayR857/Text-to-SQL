@@ -9,21 +9,21 @@ from typing import Sequence
 from auth.access_context import (
     ResolvedAccessContext,
 )
-from text_to_sql.retriever_interface import ISchemaRetriever
-from text_to_sql.authorized_schema import (
+from text_to_sql.retrieval.retriever_interface import ISchemaRetriever
+from text_to_sql.schema.authorized_schema import (
     AuthorizedSchemaService,
 )
-from text_to_sql.intent_classifier import (
+from text_to_sql.retrieval.intent_classifier import (
     QueryIntentClassifier,
 )
-from text_to_sql.retrieval import (
+from text_to_sql.retrieval.retrieval import (
     HybridSchemaRetriever,
 )
-from text_to_sql.entity_document import (
+from text_to_sql.vector_store.entity_document import (
     EntityMatchResult,
     RetrievalIntent,
 )
-from text_to_sql.entity_vector_store import (
+from text_to_sql.vector_store.entity_vector_store import (
     EntityVectorStore,
 )
 

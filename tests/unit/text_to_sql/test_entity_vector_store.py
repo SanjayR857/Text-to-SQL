@@ -15,10 +15,10 @@ from text_to_sql import (
     EntityMatchResult,
     EntityValueDocument,
 )
-from text_to_sql.models import (
+from models.text_to_sql import (
     EntityEmbeddingModel,
 )
-from text_to_sql.entity_vector_store import (
+from text_to_sql.vector_store.entity_vector_store import (
     EntityLlamaIndexRetriever,
     EntityVectorStore,
 )

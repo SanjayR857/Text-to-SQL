@@ -16,11 +16,11 @@ from sqlalchemy.ext.asyncio import AsyncEngine
 from auth.access_context import (
     ResolvedAccessContext,
 )
-from text_to_sql.entity_document import (
+from text_to_sql.vector_store.entity_document import (
     EntityMatchResult,
     EntityValueDocument,
 )
-from text_to_sql.models import (
+from models.text_to_sql import (
     EntityEmbeddingModel,
 )
 from providers.embeddings import AzureOpenAIEmbeddings

@@ -6,14 +6,14 @@ and column-level SchemaDocument objects optimized for vector embedding.
 """
 from typing import Any
 
-from text_to_sql.schema import (
+from text_to_sql.schema.database_schema import (
     DatabaseSchemaEntity,
 )
-from text_to_sql.schema_document import (
+from text_to_sql.vector_store.schema_document import (
     SchemaDocument,
     SchemaDocumentType,
 )
-from text_to_sql.metadata import (
+from text_to_sql.schema.metadata import (
     ColumnMetadataEntity,
     TableMetadataEntity,
 )

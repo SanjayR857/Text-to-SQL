@@ -8,10 +8,10 @@ strictly preserving physical database authority.
 from dataclasses import dataclass, field
 from typing import Any
 
-from text_to_sql.schema import (
+from text_to_sql.schema.database_schema import (
     DatabaseSchemaEntity,
 )
-from text_to_sql.metadata import (
+from text_to_sql.schema.metadata import (
     ColumnMetadataEntity,
     TableMetadataEntity,
 )

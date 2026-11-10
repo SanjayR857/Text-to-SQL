@@ -8,7 +8,7 @@ from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from text_to_sql.metadata import (
+from text_to_sql.schema.metadata import (
     ColumnMetadataEntity,
     TableMetadataEntity,
 )

@@ -517,29 +517,34 @@ Text-to-SQL/                               # Project root
 │   │   └── user_context_service.py        #   User identity & vertical assignment service
 │   │
 │   ├── text_to_sql/                       # Core Text-to-SQL Engine & pgvector Catalog
-│   │   ├── ast_validator.py               #   SQL AST validator & security enforcer
-│   │   ├── authorized_schema.py           #   Schema projection & filtering by user context
-│   │   ├── catalog.py                     #   MetadataCatalog for table/column business descriptions
-│   │   ├── document_builder.py            #   Schema & entity document builder
-│   │   ├── embedding_worker.py            #   Async schema embedding sync worker
-│   │   ├── entity_document.py             #   Entity document definitions & builders
-│   │   ├── entity_vector_store.py         #   pgvector store & LlamaIndex retriever for entities
-│   │   ├── entity_worker.py               #   Async entity embedding sync worker
-│   │   ├── intent_classifier.py           #   Query intent classifier
-│   │   ├── introspector.py                #   PostgreSQL schema introspector
-│   │   ├── metadata.py                    #   Table & column metadata entities
-│   │   ├── models.py                      #   SchemaEmbeddingModel & EntityEmbeddingModel ORM
-│   │   ├── policy_enforcer.py             #   SQL policy enforcer
-│   │   ├── predicate_injector.py          #   Row-level predicate injection
-│   │   ├── retrieval.py                   #   Hybrid schema retrieval service
-│   │   ├── retriever_interface.py         #   ISchemaRetriever abstract port
-│   │   ├── router_retriever.py            #   Router-based schema retriever
-│   │   ├── schema.py                      #   DatabaseSchemaEntity & catalog models
-│   │   ├── schema_document.py             #   Schema document definitions & hashing
-│   │   ├── schema_events.py               #   SchemaChangeEvent & SchemaChangeType
-│   │   ├── schema_vector_store.py         #   pgvector store & LlamaIndex retriever for schemas
-│   │   ├── scope_resolver.py              #   SQL scope resolver
-│   │   └── vector_store_interfaces.py     #   IVectorStore abstract port & search results
+│   │   ├── schema/                        #   Schema metadata, introspection & authorized projections
+│   │   │   ├── catalog.py                 #     MetadataCatalog for business descriptions & constraints
+│   │   │   ├── introspector.py            #     PostgreSQL schema introspection
+│   │   │   ├── metadata.py                #     TableMetadata & ColumnMetadata entities
+│   │   │   ├── database_schema.py         #     DatabaseSchemaEntity & catalog models
+│   │   │   ├── authorized_schema.py       #     Schema projection & column/table masking by user context
+│   │   │   └── schema_events.py           #     SchemaChangeEvent & SchemaChangeType
+│   │   ├── vector_store/                  #   pgvector stores & document embeddings
+│   │   │   ├── schema_vector_store.py     #     Schema pgvector store & LlamaIndex retriever
+│   │   │   ├── entity_vector_store.py     #     Entity pgvector store & LlamaIndex retriever
+│   │   │   ├── document_builder.py        #     Schema & entity document builder
+│   │   │   ├── schema_document.py         #     SchemaDocument definitions & hashing
+│   │   │   ├── entity_document.py         #     EntityDocument definitions & indexing
+│   │   │   ├── models.py                  #     SchemaEmbeddingModel & EntityEmbeddingModel ORM
+│   │   │   └── vector_store_interfaces.py #     IVectorStore abstract port & search results
+│   │   ├── retrieval/                     #   Hybrid schema retrieval & intent classification
+│   │   │   ├── retrieval.py               #     Hybrid schema retrieval service
+│   │   │   ├── router_retriever.py        #     Router-based schema retriever
+│   │   │   ├── intent_classifier.py       #     Query intent classifier
+│   │   │   └── retriever_interface.py     #     ISchemaRetriever abstract port
+│   │   ├── security/                      #   AST validation, policy enforcement & predicate injection
+│   │   │   ├── ast_validator.py           #     SQL AST validator & security enforcer
+│   │   │   ├── policy_enforcer.py         #     SQL policy enforcer
+│   │   │   ├── predicate_injector.py      #     Row-level predicate injection
+│   │   │   └── scope_resolver.py          #     SQL scope resolver
+│   │   └── workers/                       #   Async background embedding sync workers
+│   │       ├── embedding_worker.py        #     Async schema embedding sync worker
+│   │       └── entity_worker.py           #     Async entity embedding sync worker
 │   │
 │   ├── repositories/                      # Centralized Database Repositories
 │   │   ├── conversation_repo.py           #   Conversation persistence, locking & pagination

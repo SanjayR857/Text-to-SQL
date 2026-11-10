@@ -24,14 +24,14 @@ from core.database import (
     get_async_engine,
 )
 from providers.embeddings import AzureOpenAIEmbeddings
-from text_to_sql.entity_vector_store import (
+from text_to_sql.vector_store.entity_vector_store import (
     EntityVectorStore,
 )
-from text_to_sql.schema_vector_store import (
+from text_to_sql.vector_store.schema_vector_store import (
     SchemaVectorStore,
 )
-from text_to_sql.embedding_worker import SchemaEmbeddingWorker
-from text_to_sql.entity_worker import EntityEmbeddingWorker
+from text_to_sql.workers.embedding_worker import SchemaEmbeddingWorker
+from text_to_sql.workers.entity_worker import EntityEmbeddingWorker
 
 logger = structlog.get_logger(__name__)
 

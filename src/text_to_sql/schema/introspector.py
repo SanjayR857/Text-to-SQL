@@ -11,10 +11,10 @@ from sqlalchemy import Connection, inspect
 from sqlalchemy.engine.reflection import Inspector
 from sqlalchemy.ext.asyncio import AsyncConnection, AsyncEngine
 
-from text_to_sql.schema import (
+from text_to_sql.schema.database_schema import (
     DatabaseSchemaEntity,
 )
-from text_to_sql.metadata import (
+from text_to_sql.schema.metadata import (
     ColumnMetadataEntity,
     ForeignKeyRelation,
     TableMetadataEntity,

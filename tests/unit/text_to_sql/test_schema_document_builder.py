@@ -9,7 +9,7 @@ Verifies:
 """
 import pytest
 
-from text_to_sql.document_builder import (
+from text_to_sql.vector_store.document_builder import (
     SchemaDocumentBuilder,
 )
 from text_to_sql import (

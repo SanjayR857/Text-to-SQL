@@ -14,26 +14,26 @@ from sqlalchemy import delete, func, select, text
 from sqlalchemy.ext.asyncio import AsyncEngine
 import structlog
 
-from text_to_sql.entity_document import (
+from text_to_sql.vector_store.entity_document import (
     DEFAULT_ENTITY_TABLE_CONFIGS,
     EntityTableConfig,
     EntityValueDocument,
 )
-from text_to_sql.schema_events import (
+from text_to_sql.schema.schema_events import (
     SchemaChangeEvent,
     SchemaChangeType,
 )
-from text_to_sql.metadata import TableMetadataEntity
+from text_to_sql.schema.metadata import TableMetadataEntity
 from core.database import (
     get_async_engine,
 )
-from text_to_sql.models import (
+from models.text_to_sql import (
     EntityEmbeddingModel,
 )
-from text_to_sql.introspector import (
+from text_to_sql.schema.introspector import (
     PostgresSchemaIntrospector,
 )
-from text_to_sql.entity_vector_store import (
+from text_to_sql.vector_store.entity_vector_store import (
     EntityVectorStore,
 )
 

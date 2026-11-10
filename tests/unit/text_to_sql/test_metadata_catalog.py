@@ -9,7 +9,7 @@ Verifies:
 """
 import pytest
 
-from text_to_sql.catalog import (
+from text_to_sql.schema.catalog import (
     ColumnBusinessMetadata,
     EnterpriseMetadataCatalog,
     TableBusinessMetadata,

@@ -12,13 +12,13 @@ from auth.access_context import (
 from auth.join_validation import (
     JoinGraphValidator,
 )
-from text_to_sql.predicate_injector import (
+from text_to_sql.security.predicate_injector import (
     RowPredicateInjector,
 )
-from text_to_sql.ast_validator import (
+from text_to_sql.security.ast_validator import (
     SqlAstValidator,
 )
-from text_to_sql.scope_resolver import (
+from text_to_sql.security.scope_resolver import (
     SqlScopeResolver,
 )
 

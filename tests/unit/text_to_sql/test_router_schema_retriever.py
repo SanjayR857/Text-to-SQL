@@ -25,7 +25,7 @@ from text_to_sql import (
     EntityMatchResult,
     RetrievalIntent,
 )
-from text_to_sql.entity_vector_store import (
+from text_to_sql.vector_store.entity_vector_store import (
     EntityVectorStore,
 )
 

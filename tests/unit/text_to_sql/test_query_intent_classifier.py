@@ -8,7 +8,7 @@ Verifies:
 """
 import pytest
 
-from text_to_sql.intent_classifier import (
+from text_to_sql.retrieval.intent_classifier import (
     QueryIntentClassifier,
 )
 from text_to_sql import RetrievalIntent
