@@ -351,8 +351,8 @@ docker compose up postgres redis -d
 # Run database migrations
 alembic upgrade head
 
-# Start the API server
-uvicorn enterprise_ai_platform.main:app --reload --host 0.0.0.0 --port 8000
+# Start the API server (with src in PYTHONPATH)
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 The API will be available at `http://localhost:8000`.  
@@ -374,7 +374,7 @@ docker compose exec api alembic upgrade head
 
 ### Environment Variables
 
-All settings are defined in `src/enterprise_ai_platform/core/config.py` and loaded from environment variables or `.env`.
+All settings are defined in `src/core/config.py` and loaded from environment variables or `.env`.
 
 | Variable | Default | Description |
 |---|---|---|
@@ -441,7 +441,7 @@ pytest tests/e2e -v
 ### Coverage Report
 
 ```bash
-pytest --cov=src/enterprise_ai_platform --cov-report=html
+pytest --cov=src --cov-report=html
 open htmlcov/index.html
 ```
 
