@@ -1,4 +1,4 @@
-﻿"""
+"""
 Abstract embedding provider port.
 
 Defines the contract for dense text embedding generation used by Document RAG,

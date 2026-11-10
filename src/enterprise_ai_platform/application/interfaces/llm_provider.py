@@ -1,4 +1,4 @@
-﻿"""
+"""
 Abstract LLM provider contracts and data structures.
 
 Defines protocols for chat completion, structured model generation, and real-time streaming.
