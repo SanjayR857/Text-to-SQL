@@ -13,9 +13,7 @@ from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.types import ASGIApp
 
-from enterprise_ai_platform.application.authorization.services.user_context_service import (
-    UserContextService,
-)
+from enterprise_ai_platform.application.authorization import UserContextService
 from enterprise_ai_platform.core.config import Settings, get_settings
 from enterprise_ai_platform.core.exceptions import (
     DatabaseUnavailableError,

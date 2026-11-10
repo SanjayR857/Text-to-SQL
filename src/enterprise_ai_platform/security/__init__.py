@@ -1,3 +1,3 @@
-﻿"""
-Security package: authentication, authorisation, row-level security, and guardrails.
+"""
+Security and AI guardrails package: PII detection, prompt injection mitigation, and SQL guardrails.
 """

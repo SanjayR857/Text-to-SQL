@@ -1,3 +1,3 @@
-﻿"""
-Text-to-SQL application services and use cases.
+"""
+Text-to-SQL and structured data application services package.
 """

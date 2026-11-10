@@ -6,7 +6,7 @@ from uuid import UUID
 
 import pytest
 
-from enterprise_ai_platform.application.authorization.services.user_context_service import (
+from enterprise_ai_platform.application.authorization.user_context_service import (
     UserContextService,
 )
 from enterprise_ai_platform.core.exceptions import (

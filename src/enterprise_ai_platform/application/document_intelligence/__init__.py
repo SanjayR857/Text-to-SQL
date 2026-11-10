@@ -1,3 +1,3 @@
-﻿"""
-Document intelligence application services and use cases.
+"""
+Document intelligence application services package.
 """

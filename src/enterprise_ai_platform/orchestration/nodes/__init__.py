@@ -1,3 +1,3 @@
-﻿"""
-LangGraph node implementations grouped by domain concern.
+"""
+LangGraph workflow nodes package.
 """

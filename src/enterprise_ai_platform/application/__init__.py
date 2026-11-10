@@ -1,3 +1,3 @@
-﻿"""
-Application layer: use cases, business services, and interface ports (hexagonal architecture).
+"""
+Application layer: business services and orchestrators (Clean Architecture).
 """
