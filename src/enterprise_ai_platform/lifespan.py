@@ -17,6 +17,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from enterprise_ai_platform.core.logging import setup_logging
+from enterprise_ai_platform.core.telemetry import setup_telemetry
 from enterprise_ai_platform.infrastructure.database.connection_manager import close_engine
 
 
@@ -24,6 +25,7 @@ from enterprise_ai_platform.infrastructure.database.connection_manager import cl
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     # --- startup ---
     setup_logging()
+    setup_telemetry(app)
     yield
     # --- shutdown ---
     await close_engine()

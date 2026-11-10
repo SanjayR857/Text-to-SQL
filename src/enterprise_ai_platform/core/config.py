@@ -90,10 +90,14 @@ class Settings(BaseSettings):
 
     # -------------------------------------------------------------------------
     # Redis & Observability
-    # Env vars: REDIS_URL, LOG_LEVEL
+    # Env vars: REDIS_URL, LOG_LEVEL, APPLICATIONINSIGHTS_CONNECTION_STRING,
+    #           OTEL_EXPORTER_OTLP_ENDPOINT, ENABLE_TELEMETRY
     # -------------------------------------------------------------------------
     redis_url: str = "redis://localhost:6379/0"
     log_level: str = "INFO"
+    applicationinsights_connection_string: SecretStr | None = None
+    otel_exporter_otlp_endpoint: str | None = None
+    enable_telemetry: bool = True
 
     # -------------------------------------------------------------------------
     # Computed helpers (not env vars)
