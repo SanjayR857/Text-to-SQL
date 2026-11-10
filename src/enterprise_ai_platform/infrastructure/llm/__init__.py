@@ -1,4 +1,4 @@
-﻿"""
+"""
 Azure OpenAI LLM and embeddings package.
 
 Exports:
