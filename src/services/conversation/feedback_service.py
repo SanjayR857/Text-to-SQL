@@ -12,13 +12,13 @@ from core.exceptions import (
     MessageNotFoundError,
 )
 from models.chat import MessageFeedback
-from chat.repositories.conversation_repo import (
+from repositories.conversation_repo import (
     ConversationRepository,
 )
-from chat.repositories.feedback_repo import (
+from repositories.feedback_repo import (
     FeedbackRepository,
 )
-from chat.repositories.message_repo import (
+from repositories.message_repo import (
     MessageRepository,
 )
 

@@ -9,7 +9,7 @@ from uuid import UUID
 from sqlalchemy import desc, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from chat.models import (
+from models.chat import (
     Conversation,
     ConversationSummary,
 )

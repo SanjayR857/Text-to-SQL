@@ -13,7 +13,7 @@ import structlog
 
 from core.config import get_settings
 from core.observability import trace_span
-from chat.protocols import (
+from services.conversation.protocols import (
     ContextMessage,
     GenerationContext,
     StreamChunk,

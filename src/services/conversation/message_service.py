@@ -10,10 +10,10 @@ from core.exceptions import (
     MessageNotFoundError,
 )
 from models.chat import Message
-from chat.repositories.conversation_repo import (
+from repositories.conversation_repo import (
     ConversationRepository,
 )
-from chat.repositories.message_repo import (
+from repositories.message_repo import (
     MessageRepository,
 )
 

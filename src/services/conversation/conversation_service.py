@@ -9,7 +9,7 @@ from uuid import UUID
 
 from core.exceptions import ConversationNotFoundError
 from models.chat import Conversation
-from chat.repositories.conversation_repo import (
+from repositories.conversation_repo import (
     ConversationRepository,
 )
 

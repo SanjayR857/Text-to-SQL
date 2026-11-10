@@ -19,6 +19,12 @@ from providers.interfaces import (
     LLMProviderProtocol,
 )
 
+from providers.mock_ai_generator import (
+    MockAIGenerator,
+    MockSummaryGenerator,
+    MockTitleGenerator,
+)
+
 __all__ = [
     "get_azure_openai_client",
     "get_sync_azure_openai_client",
@@ -26,6 +32,9 @@ __all__ = [
     "AzureOpenAIGenerator",
     "AzureOpenAITitleGenerator",
     "AzureOpenAISummaryGenerator",
+    "MockAIGenerator",
+    "MockTitleGenerator",
+    "MockSummaryGenerator",
     "AzureOpenAIEmbeddings",
     "ChatMessage",
     "LLMCompletionResponse",

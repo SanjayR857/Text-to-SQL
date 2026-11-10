@@ -541,37 +541,29 @@ Text-to-SQL/                               # Project root
 │   │   ├── scope_resolver.py              #   SQL scope resolver
 │   │   └── vector_store_interfaces.py     #   IVectorStore abstract port & search results
 │   │
-│   ├── services/                          # Application business services
+│   ├── repositories/                      # Centralized Database Repositories
+│   │   ├── conversation_repo.py           #   Conversation persistence, locking & pagination
+│   │   ├── feedback_repo.py               #   Message evaluation feedback upsert
+│   │   ├── message_repo.py                #   Chronological message history & sequence fencing
+│   │   └── summary_repo.py                #   Rolling summary monotonic progression
+│   │
+│   ├── services/                          # Application Business Services
 │   │   └── conversation/                  #   Conversation lifecycle & streaming services
 │   │       ├── conversation_service.py    #     Conversation CRUD & metadata management
 │   │       ├── message_service.py         #     Message history retrieval & validation
 │   │       ├── context_service.py         #     Generation context window & summary assembly
 │   │       ├── feedback_service.py        #     Feedback rating & qualitative submission
-│   │       └── streaming_orchestrator.py  #     Zero-connection SSE token streaming orchestrator
+│   │       ├── streaming_orchestrator.py  #     Zero-connection SSE token streaming orchestrator
+│   │       ├── protocols.py               #     AIGeneratorProtocol & streaming contracts
+│   │       ├── sse_formatter.py           #     W3C Server-Sent Events protocol serializer
+│   │       ├── conversation.py            #     Conversation domain entities & status enums
+│   │       └── message.py                 #     Message domain entities & role enums
 │   │
-│   ├── chat/                              # Conversational Domain & Wire Protocols
-│   │   ├── conversation.py                #   Conversation domain entity & state machines
-│   │   ├── exceptions.py                  #   Domain exceptions (re-exported from core)
-│   │   ├── message.py                     #   Message entities & role definitions
-│   │   ├── mock_ai_generator.py           #   Development / mock stream generator
-│   │   ├── models.py                      #   ORM models (re-exported from models.chat)
-│   │   ├── protocols.py                   #   AIGeneratorProtocol & streaming contracts
-│   │   ├── repositories/                  #   Database repository implementations
-│   │   │   ├── conversation_repo.py       #     Conversation CRUD operations
-│   │   │   ├── feedback_repo.py           #     Feedback CRUD operations
-│   │   │   ├── message_repo.py            #     Message history operations
-│   │   │   └── summary_repo.py            #     Conversation summary operations
-│   │   ├── service.py                     #   Legacy re-export shim -> services.conversation
-│   │   ├── message_service.py             #   Legacy re-export shim -> services.conversation
-│   │   ├── context_service.py             #   Legacy re-export shim -> services.conversation
-│   │   ├── feedback_service.py            #   Legacy re-export shim -> services.conversation
-│   │   ├── streaming_orchestrator.py      #   Legacy re-export shim -> services.conversation
-│   │   └── sse_formatter.py               #   Server-Sent Events formatter
-│   │
-│   └── providers/                         # External AI Model Integrations
+│   └── providers/                         # External AI Model & Test Providers
 │       ├── azure_openai_client.py         #   Azure OpenAI client initialization & lifecycle
-│       ├── chat_model.py                  #   AzureOpenAIChatModel adapter
-│       ├── embeddings.py                  #   AzureOpenAIEmbeddings adapter
+│       ├── chat_model.py                  #   AzureOpenAIChatModel adapter (GPT-4o)
+│       ├── embeddings.py                  #   AzureOpenAIEmbeddings adapter (text-embedding-3)
+│       ├── mock_ai_generator.py           #   Mock AI generator for development and testing
 │       └── interfaces.py                  #   LLMProviderProtocol & EmbeddingProviderProtocol
 │
 ├── migrations/                            # Database migrations & schemas

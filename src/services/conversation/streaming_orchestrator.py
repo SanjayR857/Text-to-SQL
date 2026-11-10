@@ -14,12 +14,12 @@ from uuid import UUID, uuid4
 from fastapi import BackgroundTasks
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from chat.exceptions import (
+from core.exceptions import (
     ConversationNotFoundError,
     DuplicateMessageError,
     GenerationConflictError,
 )
-from chat.protocols import (
+from services.conversation.protocols import (
     AIGeneratorProtocol,
     ContextMessage,
     GenerationContext,
@@ -27,16 +27,16 @@ from chat.protocols import (
     SummaryGeneratorProtocol,
     TitleGeneratorProtocol,
 )
-from chat.repositories.conversation_repo import (
+from repositories.conversation_repo import (
     ConversationRepository,
 )
-from chat.repositories.message_repo import (
+from repositories.message_repo import (
     MessageRepository,
 )
-from chat.repositories.summary_repo import (
+from repositories.summary_repo import (
     SummaryRepository,
 )
-from chat.sse_formatter import (
+from services.conversation.sse_formatter import (
     SSEFormatter,
 )
 

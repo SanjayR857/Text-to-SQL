@@ -24,14 +24,14 @@ from api.dependencies import (
 from api.exception_handlers import register
 from api.routes.conversations import router as conv_router
 from api.routes.feedback import router as feedback_router
-from chat.protocols import (
+from services.conversation.protocols import (
     GenerationContext,
     StreamChunk,
 )
 from core.database import (
     close_engine,
 )
-from chat.models import (
+from models.chat import (
     Conversation,
     Message,
 )
@@ -41,12 +41,12 @@ from core.database import (
     get_session_factory,
     reset_session_factory,
 )
-from chat.mock_ai_generator import (
+from providers.mock_ai_generator import (
     MockAIGenerator,
     MockSummaryGenerator,
     MockTitleGenerator,
 )
-from chat.sse_formatter import (
+from services.conversation.sse_formatter import (
     SSEFormatter,
 )
 
@@ -322,7 +322,7 @@ async def test_generator_failure_handling():
 @pytest.mark.asyncio
 async def test_client_disconnect_saves_partial_content():
     """Verify that client cancellation preserves partial tokens and releases lock."""
-    from chat.streaming_orchestrator import (
+    from services.conversation.streaming_orchestrator import (
         StreamingOrchestrator,
     )
 
@@ -338,7 +338,7 @@ async def test_client_disconnect_saves_partial_content():
 
     # Create conversation
     async with async_db_session() as session:
-        from chat.repositories.conversation_repo import (
+        from repositories.conversation_repo import (
             ConversationRepository,
         )
         conv_repo = ConversationRepository(session)
@@ -376,7 +376,7 @@ async def test_client_disconnect_saves_partial_content():
 @pytest.mark.asyncio
 async def test_timeout_handling():
     """Verify that exceeding global timeout interrupts generation and emits timeout error event."""
-    from chat.streaming_orchestrator import (
+    from services.conversation.streaming_orchestrator import (
         StreamingOrchestrator,
     )
 
@@ -393,7 +393,7 @@ async def test_timeout_handling():
     )
 
     async with async_db_session() as session:
-        from chat.repositories.conversation_repo import (
+        from repositories.conversation_repo import (
             ConversationRepository,
         )
         conv_repo = ConversationRepository(session)
@@ -438,7 +438,7 @@ async def test_timeout_handling():
 @pytest.mark.asyncio
 async def test_keepalive_emitted_during_delay():
     """Verify that keepalive comment lines are emitted when token generation has latency."""
-    from chat.streaming_orchestrator import (
+    from services.conversation.streaming_orchestrator import (
         StreamingOrchestrator,
     )
 
@@ -456,7 +456,7 @@ async def test_keepalive_emitted_during_delay():
     )
 
     async with async_db_session() as session:
-        from chat.repositories.conversation_repo import (
+        from repositories.conversation_repo import (
             ConversationRepository,
         )
         conv_repo = ConversationRepository(session)
@@ -514,13 +514,13 @@ async def test_background_titling_execution():
 @pytest.mark.asyncio
 async def test_background_summarization_execution():
     """Verify that background summarization creates a new version when threshold is met."""
-    from chat.streaming_orchestrator import (
+    from services.conversation.streaming_orchestrator import (
         StreamingOrchestrator,
     )
-    from chat.models import (
+    from models.chat import (
         ConversationSummary,
     )
-    from chat.mock_ai_generator import (
+    from providers.mock_ai_generator import (
         MockSummaryGenerator,
     )
 
@@ -533,7 +533,7 @@ async def test_background_summarization_execution():
     )
 
     async with async_db_session() as session:
-        from chat.repositories.conversation_repo import (
+        from repositories.conversation_repo import (
             ConversationRepository,
         )
         conv_repo = ConversationRepository(session)

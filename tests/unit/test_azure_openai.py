@@ -5,7 +5,7 @@ from unittest.mock import AsyncMock, MagicMock
 from uuid import uuid4
 import pytest
 
-from chat.protocols import (
+from services.conversation.protocols import (
     ContextMessage,
     GenerationContext,
     StreamChunk,

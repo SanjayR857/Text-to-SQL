@@ -9,20 +9,20 @@ import pytest
 from sqlalchemy import select
 
 from api.dependencies import DEV_USER_ID
-from chat.models import (
+from models.chat import (
     Conversation,
     Message,
 )
-from chat.repositories.conversation_repo import (
+from repositories.conversation_repo import (
     ConversationRepository,
 )
-from chat.repositories.feedback_repo import (
+from repositories.feedback_repo import (
     FeedbackRepository,
 )
-from chat.repositories.message_repo import (
+from repositories.message_repo import (
     MessageRepository,
 )
-from chat.repositories.summary_repo import (
+from repositories.summary_repo import (
     SummaryRepository,
 )
 from core.database import (

@@ -6,7 +6,7 @@ from typing import Any, Protocol
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from chat.protocols import GenerationContext, StreamChunk
+from services.conversation.protocols import GenerationContext, StreamChunk
 
 
 class ChatMessage(BaseModel):

@@ -17,21 +17,21 @@ from services.conversation import (
     StreamingOrchestrator,
 )
 from core.config import get_settings
-from chat.protocols import (
+from services.conversation.protocols import (
     AIGeneratorProtocol,
     SummaryGeneratorProtocol,
     TitleGeneratorProtocol,
 )
-from chat.repositories.conversation_repo import (
+from repositories.conversation_repo import (
     ConversationRepository,
 )
-from chat.repositories.feedback_repo import (
+from repositories.feedback_repo import (
     FeedbackRepository,
 )
-from chat.repositories.message_repo import (
+from repositories.message_repo import (
     MessageRepository,
 )
-from chat.repositories.summary_repo import (
+from repositories.summary_repo import (
     SummaryRepository,
 )
 from core.database import (
@@ -43,8 +43,6 @@ from providers import (
     AzureOpenAIGenerator,
     AzureOpenAISummaryGenerator,
     AzureOpenAITitleGenerator,
-)
-from chat.mock_ai_generator import (
     MockAIGenerator,
     MockSummaryGenerator,
     MockTitleGenerator,

@@ -8,7 +8,7 @@ from uuid import uuid4
 import pytest
 
 from core.config import get_settings
-from chat.protocols import GenerationContext
+from services.conversation.protocols import GenerationContext
 from providers.chat_model import AzureOpenAIGenerator
 from providers.embeddings import AzureOpenAIEmbeddings
 

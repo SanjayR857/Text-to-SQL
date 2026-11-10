@@ -7,14 +7,14 @@ for downstream external AI generation engines.
 from uuid import UUID
 
 from core.exceptions import ConversationNotFoundError
-from chat.protocols import ContextMessage, GenerationContext
-from chat.repositories.conversation_repo import (
+from services.conversation.protocols import ContextMessage, GenerationContext
+from repositories.conversation_repo import (
     ConversationRepository,
 )
-from chat.repositories.message_repo import (
+from repositories.message_repo import (
     MessageRepository,
 )
-from chat.repositories.summary_repo import (
+from repositories.summary_repo import (
     SummaryRepository,
 )
 
