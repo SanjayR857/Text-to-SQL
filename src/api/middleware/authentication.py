@@ -13,7 +13,7 @@ from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.types import ASGIApp
 
-from auth import UserContextService
+from rbac import UserContextService
 from core.config import Settings, get_settings
 from core.exceptions import (
     DatabaseUnavailableError,
@@ -21,8 +21,8 @@ from core.exceptions import (
     NoActiveAssignmentsError,
     UserNotFoundError,
 )
-from auth.user import RequestIdentity
-from auth.repository import (
+from rbac.user import RequestIdentity
+from rbac.repository import (
     UserContextRepository,
 )
 from core.database import get_session_factory

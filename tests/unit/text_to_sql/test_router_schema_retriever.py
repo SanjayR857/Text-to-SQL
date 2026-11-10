@@ -10,14 +10,14 @@ from unittest.mock import AsyncMock, MagicMock
 from uuid import uuid4
 import pytest
 
-from auth import PolicyResolver
+from rbac import PolicyResolver
 from text_to_sql import (
     AuthorizedSchemaService,
     HybridSchemaRetriever,
     QueryIntentClassifier,
     RouterSchemaRetriever,
 )
-from auth.user import (
+from rbac.user import (
     AccessScope as UserAccessScope,
     UserContext,
 )

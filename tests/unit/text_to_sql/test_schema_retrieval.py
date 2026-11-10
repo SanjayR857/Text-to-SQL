@@ -11,7 +11,7 @@ from unittest.mock import AsyncMock, MagicMock
 from uuid import uuid4
 import pytest
 
-from auth import PolicyResolver
+from rbac import PolicyResolver
 from text_to_sql.vector_store.vector_store_interfaces import (
     IVectorStore,
     VectorSearchResult,
@@ -20,8 +20,8 @@ from text_to_sql import (
     AuthorizedSchemaService,
     HybridSchemaRetriever,
 )
-from auth.role import Area, Role
-from auth.user import (
+from rbac.role import Area, Role
+from rbac.user import (
     AccessScope as UserAccessScope,
     RoleAssignmentContext,
     UserContext,

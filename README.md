@@ -504,17 +504,27 @@ Text-to-SQL/                               # Project root
 │   │   ├── database.py                    #   SQLAlchemy Base, AsyncEngine & Session factory
 │   │   └── events.py                      #   In-memory async event bus
 │   │
-│   ├── auth/                              # Security, RBAC & Data Governance
-│   │   ├── access_context.py              #   Resolved access context & table permissions
-│   │   ├── handlers/                      #   Vertical policy handlers (attendance, project, etc.)
-│   │   ├── join_validation.py             #   JoinGraphValidator & approved enterprise joins
-│   │   ├── models.py                      #   User SQLAlchemy ORM model
-│   │   ├── policy_resolver.py             #   RBAC policy resolution engine
-│   │   ├── predicate_spec.py              #   Row-level predicate generation specifications
-│   │   ├── repository.py                  #   UserContextRepository
-│   │   ├── role.py                        #   Role & Area enums
-│   │   ├── user.py                        #   UserContext & RequestIdentity value objects
-│   │   └── user_context_service.py        #   User identity & vertical assignment service
+│   ├── rbac/                              # Role-Based Access Control, Identity & Governance
+│   │   ├── identity/                      #   Identity domain models, service & user repository
+│   │   │   ├── role.py                    #     Role (Admin, Chief, Lead, Employee) & Area enums
+│   │   │   ├── user.py                    #     UserContext, RequestIdentity & RoleAssignmentContext
+│   │   │   ├── service.py                 #     UserContextService (identity & vertical resolution)
+│   │   │   └── repository.py              #     UserContextRepository (PostgreSQL RBAC queries)
+│   │   ├── policies/                      #   Access policies, permissions & vertical handlers
+│   │   │   ├── access_context.py          #     ResolvedAccessContext, TablePermission, ColumnPermission
+│   │   │   ├── predicate_spec.py          #     PredicateSpec & PredicateOperator
+│   │   │   ├── resolver.py                #     Central PolicyResolver engine
+│   │   │   └── handlers/                  #     Vertical policy handlers (attendance, project, etc.)
+│   │   │       ├── base_handler.py        #       BasePolicyHandler abstract contract
+│   │   │       ├── attendance_handler.py  #       Attendance & badge swipe access rules
+│   │   │       ├── demand_handler.py      #       Demand requisitions & recruitment pipeline
+│   │   │       ├── employee_handler.py    #       Employee directory & compensation masking
+│   │   │       ├── project_handler.py     #       Project governance, contracts & allocations
+│   │   │       ├── rating_comment_handler.py #    Qualitative rating & feedback rules
+│   │   │       ├── scoreboard_handler.py  #       Executive scoreboard & leaderboard rules
+│   │   │       └── standard_vertical_handler.py # Standard vertical-scoped & lookup tables
+│   │   └── validation/                    #   Enterprise join graph validation
+│   │       └── join_validation.py         #     JoinGraphValidator & approved enterprise joins
 │   │
 │   ├── text_to_sql/                       # Core Text-to-SQL Engine & pgvector Catalog
 │   │   ├── schema/                        #   Schema metadata, introspection & authorized projections
@@ -590,7 +600,7 @@ Text-to-SQL/                               # Project root
 │   │   ├── test_streaming.py
 │   │   └── test_user_context_api.py
 │   └── unit/                              # Unit tests
-│       ├── auth/                          # RBAC and authorization unit tests
+│       ├── rbac/                          # RBAC and authorization unit tests
 │       ├── text_to_sql/                   # Text-to-SQL & catalog unit tests
 │       ├── test_auth_middleware.py
 │       ├── test_azure_openai.py

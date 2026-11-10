@@ -35,7 +35,7 @@ from models.chat import (
     Conversation,
     Message,
 )
-from auth.models import User
+from models.user import User
 from core.database import (
     async_db_session,
     get_session_factory,

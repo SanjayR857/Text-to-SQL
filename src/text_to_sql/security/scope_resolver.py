@@ -7,7 +7,7 @@ import sqlglot
 from sqlglot import exp
 from sqlglot.optimizer.scope import Scope, traverse_scope
 
-from auth.access_context import (
+from rbac.access_context import (
     ResolvedAccessContext,
     TablePermission,
 )

@@ -6,7 +6,7 @@ injecting exact WHERE filter value hints while enforcing strict Python RBAC.
 """
 from typing import Sequence
 
-from auth.access_context import (
+from rbac.access_context import (
     ResolvedAccessContext,
 )
 from text_to_sql.retrieval.retriever_interface import ISchemaRetriever

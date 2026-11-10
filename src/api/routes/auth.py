@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends
 
 from api.dependencies import get_current_user_context
 from schemas.auth import UserContextResponse
-from auth.user import UserContext
+from rbac.user import UserContext
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 

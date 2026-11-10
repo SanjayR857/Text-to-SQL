@@ -15,7 +15,7 @@ from api.routes.feedback import router as feedback_router
 from core.database import (
     close_engine,
 )
-from auth.models import User
+from models.user import User
 from core.database import (
     async_db_session,
     reset_session_factory,
