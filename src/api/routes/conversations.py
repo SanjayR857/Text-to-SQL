@@ -27,11 +27,9 @@ from schemas.message import (
     MessageResponse,
     MessageSubmitRequest,
 )
-from chat.service import (
+from services.conversation import (
     ConversationService,
-)
-from chat.message_service import MessageService
-from chat.streaming_orchestrator import (
+    MessageService,
     StreamingOrchestrator,
 )
 

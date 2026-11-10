@@ -1,7 +1,6 @@
 """
 Chat & conversation management: models, repositories, lifecycle services, and SSE streaming.
 """
-from chat.context_service import ContextService
 from chat.conversation import (
     ConversationEntity,
     ConversationStatus,
@@ -20,14 +19,12 @@ from chat.exceptions import (
     MessageNotFoundError,
     StaleSummaryError,
 )
-from chat.feedback_service import FeedbackService
 from chat.message import (
     MessageEntity,
     MessageFeedbackEntity,
     MessageRole,
     MessageStatus,
 )
-from chat.message_service import MessageService
 from chat.mock_ai_generator import MockAIGenerator
 from chat.models import (
     Conversation,
@@ -49,9 +46,22 @@ from chat.repositories import (
     MessageRepository,
     SummaryRepository,
 )
-from chat.service import ConversationService
 from chat.sse_formatter import SSEFormatter
-from chat.streaming_orchestrator import StreamingOrchestrator
+
+
+def __getattr__(name: str):
+    """Lazy export of conversation services to avoid circular imports."""
+    if name in {
+        "ConversationService",
+        "MessageService",
+        "FeedbackService",
+        "ContextService",
+        "StreamingOrchestrator",
+    }:
+        import services.conversation as sc
+
+        return getattr(sc, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 __all__ = [
     "ConversationEntity",

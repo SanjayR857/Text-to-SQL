@@ -43,6 +43,7 @@ from core.database import (
 )
 from chat.mock_ai_generator import (
     MockAIGenerator,
+    MockSummaryGenerator,
     MockTitleGenerator,
 )
 from chat.sse_formatter import (
@@ -56,6 +57,9 @@ def create_test_app() -> FastAPI:
     register(app)
     app.include_router(conv_router)
     app.include_router(feedback_router)
+    app.dependency_overrides[get_ai_generator] = lambda: MockAIGenerator()
+    app.dependency_overrides[get_title_generator] = lambda: MockTitleGenerator()
+    app.dependency_overrides[get_summary_generator] = lambda: MockSummaryGenerator()
     return app
 
 

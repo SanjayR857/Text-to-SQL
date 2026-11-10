@@ -9,13 +9,11 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 from auth.role import Role
 from auth.user import RequestIdentity, UserContext
 
-from chat.context_service import ContextService
-from chat.service import (
+from services.conversation import (
+    ContextService,
     ConversationService,
-)
-from chat.feedback_service import FeedbackService
-from chat.message_service import MessageService
-from chat.streaming_orchestrator import (
+    FeedbackService,
+    MessageService,
     StreamingOrchestrator,
 )
 from core.config import get_settings

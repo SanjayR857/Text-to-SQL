@@ -541,24 +541,32 @@ Text-to-SQL/                               # Project root
 │   │   ├── scope_resolver.py              #   SQL scope resolver
 │   │   └── vector_store_interfaces.py     #   IVectorStore abstract port & search results
 │   │
-│   ├── chat/                              # Conversational Management & Streaming
-│   │   ├── context_service.py             #   Context window & token budget management
-│   │   ├── conversation.py                #   Conversation entities & enums
-│   │   ├── exceptions.py                  #   Chat domain exceptions
-│   │   ├── feedback_service.py            #   User feedback collection service
+│   ├── services/                          # Application business services
+│   │   └── conversation/                  #   Conversation lifecycle & streaming services
+│   │       ├── conversation_service.py    #     Conversation CRUD & metadata management
+│   │       ├── message_service.py         #     Message history retrieval & validation
+│   │       ├── context_service.py         #     Generation context window & summary assembly
+│   │       ├── feedback_service.py        #     Feedback rating & qualitative submission
+│   │       └── streaming_orchestrator.py  #     Zero-connection SSE token streaming orchestrator
+│   │
+│   ├── chat/                              # Conversational Domain & Wire Protocols
+│   │   ├── conversation.py                #   Conversation domain entity & state machines
+│   │   ├── exceptions.py                  #   Domain exceptions (re-exported from core)
 │   │   ├── message.py                     #   Message entities & role definitions
-│   │   ├── message_service.py             #   Message persistence & retrieval service
 │   │   ├── mock_ai_generator.py           #   Development / mock stream generator
-│   │   ├── models.py                      #   Conversation, Message & Feedback ORM models
+│   │   ├── models.py                      #   ORM models (re-exported from models.chat)
 │   │   ├── protocols.py                   #   AIGeneratorProtocol & streaming contracts
 │   │   ├── repositories/                  #   Database repository implementations
 │   │   │   ├── conversation_repo.py       #     Conversation CRUD operations
 │   │   │   ├── feedback_repo.py           #     Feedback CRUD operations
 │   │   │   ├── message_repo.py            #     Message history operations
 │   │   │   └── summary_repo.py            #     Conversation summary operations
-│   │   ├── service.py                     #   Conversation lifecycle service
-│   │   ├── sse_formatter.py               #   Server-Sent Events formatter
-│   │   └── streaming_orchestrator.py      #   SSE token streaming coordinator
+│   │   ├── service.py                     #   Legacy re-export shim -> services.conversation
+│   │   ├── message_service.py             #   Legacy re-export shim -> services.conversation
+│   │   ├── context_service.py             #   Legacy re-export shim -> services.conversation
+│   │   ├── feedback_service.py            #   Legacy re-export shim -> services.conversation
+│   │   ├── streaming_orchestrator.py      #   Legacy re-export shim -> services.conversation
+│   │   └── sse_formatter.py               #   Server-Sent Events formatter
 │   │
 │   └── providers/                         # External AI Model Integrations
 │       ├── azure_openai_client.py         #   Azure OpenAI client initialization & lifecycle

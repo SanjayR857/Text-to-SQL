@@ -150,6 +150,11 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
                 service = UserContextService(repo)
                 user_context = await service.resolve_user_context(clean_email)
 
+            if user_context.is_unassigned_employee:
+                raise NoActiveAssignmentsError(
+                    f"User with email '{clean_email}' has no active vertical role assignments."
+                )
+
             # Attach resolved UserContext and user_id to request state
             request.state.user_context = user_context
             request.state.user_id = user_context.user_id

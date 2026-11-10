@@ -15,7 +15,7 @@ from schemas.feedback import (
     FeedbackResponse,
     FeedbackSubmitRequest,
 )
-from chat.feedback_service import FeedbackService
+from services.conversation import FeedbackService
 
 router = APIRouter(prefix="/conversations/{conversation_id}", tags=["Feedback"])
 
