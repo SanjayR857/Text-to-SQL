@@ -16,7 +16,7 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
-from core.logging import setup_logging
+from core.logger import setup_logging
 from core.telemetry import setup_telemetry
 from core.database import close_engine
 from providers import close_azure_openai_client

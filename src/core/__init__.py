@@ -28,7 +28,7 @@ from core.exceptions import (
     TableAccessDeniedError,
     UserNotFoundError,
 )
-from core.logging import setup_logging
+from core.logger import setup_logging
 from core.telemetry import (
     add_span_attributes,
     get_current_span_id,
