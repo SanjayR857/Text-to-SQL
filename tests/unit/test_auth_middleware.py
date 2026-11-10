@@ -12,7 +12,7 @@ from api.middleware.authentication import (
     AuthenticationMiddleware,
 )
 from core.config import Settings
-from rbac.user import RequestIdentity
+from rbac.identity import RequestIdentity
 
 
 def create_test_app(settings: Settings) -> FastAPI:

@@ -6,7 +6,7 @@ and enforces Python table and column RBAC before projecting schema into LLM prom
 """
 from typing import Sequence
 
-from rbac.access_context import (
+from rbac.policies import (
     ResolvedAccessContext,
 )
 from text_to_sql.retrieval.retriever_interface import ISchemaRetriever

@@ -6,8 +6,8 @@ from uuid import UUID
 from fastapi import Depends, Header, HTTPException, Request, status
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from rbac.role import Role
-from rbac.user import RequestIdentity, UserContext
+from rbac.identity import Role
+from rbac.identity import RequestIdentity, UserContext
 
 from services.conversation import (
     ContextService,

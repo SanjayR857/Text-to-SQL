@@ -6,10 +6,10 @@ wildcard expansion, and row predicate injection.
 """
 from typing import Any
 
-from rbac.access_context import (
+from rbac.policies import (
     ResolvedAccessContext,
 )
-from rbac.join_validation import (
+from rbac.validation import (
     JoinGraphValidator,
 )
 from text_to_sql.security.predicate_injector import (

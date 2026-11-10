@@ -21,8 +21,8 @@ from core.exceptions import (
     NoActiveAssignmentsError,
     UserNotFoundError,
 )
-from rbac.user import RequestIdentity
-from rbac.repository import (
+from rbac.identity import RequestIdentity
+from rbac.identity import (
     UserContextRepository,
 )
 from core.database import get_session_factory

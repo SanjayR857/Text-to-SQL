@@ -22,8 +22,8 @@ from core.exceptions import (
     SqlSecurityError,
     TableAccessDeniedError,
 )
-from rbac.role import Area, Role
-from rbac.user import (
+from rbac.identity import Area, Role
+from rbac.identity import (
     AccessScope as UserAccessScope,
     RoleAssignmentContext,
     UserContext,

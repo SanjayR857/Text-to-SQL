@@ -17,7 +17,7 @@ from text_to_sql import (
     QueryIntentClassifier,
     RouterSchemaRetriever,
 )
-from rbac.user import (
+from rbac.identity import (
     AccessScope as UserAccessScope,
     UserContext,
 )

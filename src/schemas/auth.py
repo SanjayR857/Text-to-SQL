@@ -5,7 +5,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from rbac.user import AccessScope, RoleAssignmentContext
+from rbac.identity import AccessScope, RoleAssignmentContext
 
 
 class UserContextResponse(BaseModel):

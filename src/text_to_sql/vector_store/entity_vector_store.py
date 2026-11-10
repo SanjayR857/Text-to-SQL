@@ -13,7 +13,7 @@ from sqlalchemy import delete, func, or_, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.ext.asyncio import AsyncEngine
 
-from rbac.access_context import (
+from rbac.policies import (
     ResolvedAccessContext,
 )
 from text_to_sql.vector_store.entity_document import (

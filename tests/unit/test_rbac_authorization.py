@@ -9,8 +9,8 @@ from api.dependencies import (
     require_ca_admin,
     require_vertical_access,
 )
-from rbac.role import Area, Role
-from rbac.user import (
+from rbac.identity import Area, Role
+from rbac.identity import (
     AccessScope,
     RoleAssignmentContext,
     UserContext,

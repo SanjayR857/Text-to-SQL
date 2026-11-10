@@ -8,8 +8,8 @@ from rbac import PolicyResolver
 from text_to_sql import (
     AuthorizedSchemaService,
 )
-from rbac.role import Area, Role
-from rbac.user import (
+from rbac.identity import Area, Role
+from rbac.identity import (
     AccessScope as UserAccessScope,
     RoleAssignmentContext,
     UserContext,

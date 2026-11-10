@@ -9,12 +9,12 @@ from typing import Set
 import sqlglot
 from sqlglot import exp
 
-from rbac.access_context import (
+from rbac.policies import (
     AccessScope,
     ResolvedAccessContext,
     TablePermission,
 )
-from rbac.predicate_spec import (
+from rbac.policies import (
     PredicateOperator,
     PredicateSpec,
 )

@@ -14,7 +14,7 @@ from rbac import (
     TablePermission,
 )
 from core.exceptions import JoinAccessDeniedError
-from rbac.user import (
+from rbac.identity import (
     AccessScope as UserAccessScope,
     UserContext,
 )

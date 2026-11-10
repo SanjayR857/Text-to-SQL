@@ -5,7 +5,7 @@ Defines the contract for retrieving authorized schema representations for Text-t
 """
 from abc import ABC, abstractmethod
 
-from rbac.access_context import (
+from rbac.policies import (
     ResolvedAccessContext,
 )
 

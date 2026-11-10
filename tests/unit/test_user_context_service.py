@@ -6,7 +6,7 @@ from uuid import UUID
 
 import pytest
 
-from rbac.user_context_service import (
+from rbac.identity import (
     UserContextService,
 )
 from core.exceptions import (
@@ -15,8 +15,8 @@ from core.exceptions import (
     NoActiveAssignmentsError,
     UserNotFoundError,
 )
-from rbac.role import Area, Role
-from rbac.repository import (
+from rbac.identity import Area, Role
+from rbac.identity import (
     UserContextRepository,
 )
 

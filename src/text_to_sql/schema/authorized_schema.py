@@ -6,11 +6,11 @@ prompt generation, completely hiding unauthorized tables and sensitive columns.
 """
 from typing import Set
 
-from rbac.access_context import (
+from rbac.policies import (
     ResolvedAccessContext,
     TablePermission,
 )
-from rbac.join_validation import (
+from rbac.validation import (
     JoinGraphValidator,
 )
 

@@ -9,7 +9,7 @@ import httpx
 import pytest
 
 from api.middleware.logging import RequestLoggingMiddleware
-from rbac.user import RequestIdentity, UserContext
+from rbac.identity import RequestIdentity, UserContext
 
 
 @pytest.fixture
