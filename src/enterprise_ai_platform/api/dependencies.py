@@ -39,6 +39,12 @@ from enterprise_ai_platform.infrastructure.database.session import (
     get_db_session,
     get_session_factory,
 )
+from enterprise_ai_platform.infrastructure.llm import (
+    AzureOpenAIEmbeddings,
+    AzureOpenAIGenerator,
+    AzureOpenAISummaryGenerator,
+    AzureOpenAITitleGenerator,
+)
 from enterprise_ai_platform.infrastructure.streaming.mock_ai_generator import (
     MockAIGenerator,
     MockSummaryGenerator,
@@ -182,19 +188,39 @@ def get_session_factory_provider() -> async_sessionmaker[AsyncSession]:
 def get_ai_generator() -> AIGeneratorProtocol:
     """
     Dependency provider for external AI generation engine.
-    Returns MockAIGenerator by default; overridden in staging/production with real AI engine.
+    Returns AzureOpenAIGenerator (GPT-4o) when real endpoint is configured, otherwise MockAIGenerator.
     """
+    settings = get_settings()
+    if settings.azure_openai_endpoint and "mock" not in settings.azure_openai_endpoint:
+        return AzureOpenAIGenerator()
     return MockAIGenerator()
 
 
 def get_title_generator() -> TitleGeneratorProtocol | None:
-    """Dependency provider for conversation title generator."""
+    """
+    Dependency provider for conversation title generator.
+    Returns AzureOpenAITitleGenerator (GPT-4o-mini) when real endpoint is configured.
+    """
+    settings = get_settings()
+    if settings.azure_openai_endpoint and "mock" not in settings.azure_openai_endpoint:
+        return AzureOpenAITitleGenerator()
     return MockTitleGenerator()
 
 
 def get_summary_generator() -> SummaryGeneratorProtocol | None:
-    """Dependency provider for rolling conversation summary generator."""
+    """
+    Dependency provider for rolling conversation summary generator.
+    Returns AzureOpenAISummaryGenerator (GPT-4o-mini) when real endpoint is configured.
+    """
+    settings = get_settings()
+    if settings.azure_openai_endpoint and "mock" not in settings.azure_openai_endpoint:
+        return AzureOpenAISummaryGenerator()
     return MockSummaryGenerator()
+
+
+def get_embeddings_service() -> AzureOpenAIEmbeddings:
+    """Dependency provider for Azure OpenAI vector embeddings service (text-embedding-3-small)."""
+    return AzureOpenAIEmbeddings()
 
 
 def get_streaming_orchestrator(
