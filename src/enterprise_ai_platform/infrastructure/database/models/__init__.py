@@ -8,6 +8,12 @@ from enterprise_ai_platform.infrastructure.database.models.conversation import (
     Message,
     MessageFeedback,
 )
+from enterprise_ai_platform.infrastructure.database.models.entity_embedding import (
+    EntityEmbeddingModel,
+)
+from enterprise_ai_platform.infrastructure.database.models.schema_embedding import (
+    SchemaEmbeddingModel,
+)
 from enterprise_ai_platform.infrastructure.database.models.user import User
 
 __all__ = [
@@ -17,4 +23,6 @@ __all__ = [
     "Message",
     "MessageFeedback",
     "ConversationSummary",
+    "EntityEmbeddingModel",
+    "SchemaEmbeddingModel",
 ]

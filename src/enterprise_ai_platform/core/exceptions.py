@@ -37,3 +37,24 @@ class NoActiveAssignmentsError(PlatformException):
 
 class DatabaseUnavailableError(PlatformException):
     """Raised when database connection or execution fails."""
+
+
+class AuthorizationError(PlatformException):
+    """Base exception for authorization and access control violations."""
+
+
+class TableAccessDeniedError(AuthorizationError):
+    """Raised when an unauthorized table is referenced in a query."""
+
+
+class ColumnAccessDeniedError(AuthorizationError):
+    """Raised when an unauthorized column or operation (select, filter, group, aggregate) is attempted."""
+
+
+class JoinAccessDeniedError(AuthorizationError):
+    """Raised when an unauthorized or unapproved join relationship is detected."""
+
+
+class SqlSecurityError(AuthorizationError):
+    """Raised when SQL AST validation detects forbidden statements, functions, or patterns."""
+
