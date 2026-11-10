@@ -5,7 +5,7 @@ from fastapi import FastAPI
 import httpx
 import pytest
 
-from enterprise_ai_platform.api.middleware.security_headers import SecurityHeadersMiddleware
+from api.middleware.security_headers import SecurityHeadersMiddleware
 
 
 @pytest.fixture

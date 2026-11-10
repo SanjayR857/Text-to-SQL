@@ -11,8 +11,8 @@ from sqlalchemy import Index
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.schema import CreateIndex, CreateTable
 
-from enterprise_ai_platform.core.database import Base
-from enterprise_ai_platform.text_to_sql.models import (
+from core.database import Base
+from text_to_sql.models import (
     EntityEmbeddingModel,
     SchemaEmbeddingModel,
 )

@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 import pytest
 from pydantic import ValidationError
 
-from enterprise_ai_platform.text_to_sql import (
+from text_to_sql import (
     ColumnMetadataEntity,
     DatabaseSchemaEntity,
     ForeignKeyRelation,

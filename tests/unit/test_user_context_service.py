@@ -6,17 +6,17 @@ from uuid import UUID
 
 import pytest
 
-from enterprise_ai_platform.auth.user_context_service import (
+from auth.user_context_service import (
     UserContextService,
 )
-from enterprise_ai_platform.core.exceptions import (
+from core.exceptions import (
     DatabaseUnavailableError,
     InvalidIdentityError,
     NoActiveAssignmentsError,
     UserNotFoundError,
 )
-from enterprise_ai_platform.auth.role import Area, Role
-from enterprise_ai_platform.auth.repository import (
+from auth.role import Area, Role
+from auth.repository import (
     UserContextRepository,
 )
 

@@ -9,10 +9,10 @@ Verifies:
 """
 import pytest
 
-from enterprise_ai_platform.text_to_sql.document_builder import (
+from text_to_sql.document_builder import (
     SchemaDocumentBuilder,
 )
-from enterprise_ai_platform.text_to_sql import (
+from text_to_sql import (
     ColumnMetadataEntity,
     DatabaseSchemaEntity,
     ForeignKeyRelation,

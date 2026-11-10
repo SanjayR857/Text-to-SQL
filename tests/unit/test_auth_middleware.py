@@ -6,13 +6,13 @@ import httpx
 from pydantic import ValidationError
 import pytest
 
-from enterprise_ai_platform.api.dependencies import get_current_identity
-from enterprise_ai_platform.api.middleware.authentication import (
+from api.dependencies import get_current_identity
+from api.middleware.authentication import (
     DEV_USER_EMAIL_HEADER,
     AuthenticationMiddleware,
 )
-from enterprise_ai_platform.core.config import Settings
-from enterprise_ai_platform.auth.user import RequestIdentity
+from core.config import Settings
+from auth.user import RequestIdentity
 
 
 def create_test_app(settings: Settings) -> FastAPI:

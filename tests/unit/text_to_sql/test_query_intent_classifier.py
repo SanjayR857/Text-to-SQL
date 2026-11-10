@@ -8,10 +8,10 @@ Verifies:
 """
 import pytest
 
-from enterprise_ai_platform.text_to_sql.intent_classifier import (
+from text_to_sql.intent_classifier import (
     QueryIntentClassifier,
 )
-from enterprise_ai_platform.text_to_sql import RetrievalIntent
+from text_to_sql import RetrievalIntent
 
 
 class TestQueryIntentClassifier:

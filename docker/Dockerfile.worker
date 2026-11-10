@@ -23,4 +23,6 @@ COPY . .
 RUN useradd -m appuser && chown -R appuser:appuser /app
 USER appuser
 
-CMD ["python", "-m", "enterprise_ai_platform.workers.document_worker"]
+ENV PYTHONPATH="/app/src"
+
+CMD ["python", "scripts/sync_embeddings.py", "--all"]

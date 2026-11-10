@@ -12,16 +12,16 @@ from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
-from enterprise_ai_platform.core.config import get_settings
-from enterprise_ai_platform.core.database import Base
-from enterprise_ai_platform.auth.models import User
-from enterprise_ai_platform.chat.models import (
+from core.config import get_settings
+from core.database import Base
+from auth.models import User
+from chat.models import (
     Conversation,
     ConversationSummary,
     Message,
     MessageFeedback,
 )
-from enterprise_ai_platform.text_to_sql.models import (
+from text_to_sql.models import (
     EntityEmbeddingModel,
     SchemaEmbeddingModel,
 )

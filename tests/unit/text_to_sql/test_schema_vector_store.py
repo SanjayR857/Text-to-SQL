@@ -11,17 +11,17 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 from llama_index.core.schema import NodeWithScore, QueryBundle
 
-from enterprise_ai_platform.text_to_sql.vector_store_interfaces import (
+from text_to_sql.vector_store_interfaces import (
     VectorSearchResult,
 )
-from enterprise_ai_platform.text_to_sql import (
+from text_to_sql import (
     SchemaDocument,
     SchemaDocumentType,
 )
-from enterprise_ai_platform.text_to_sql.models import (
+from text_to_sql.models import (
     SchemaEmbeddingModel,
 )
-from enterprise_ai_platform.text_to_sql.schema_vector_store import (
+from text_to_sql.schema_vector_store import (
     SchemaLlamaIndexRetriever,
     SchemaVectorStore,
 )

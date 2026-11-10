@@ -9,7 +9,7 @@ from uuid import UUID, uuid4
 import httpx
 import pytest
 
-from enterprise_ai_platform.api.dependencies import DEV_USER_ID
+from api.dependencies import DEV_USER_ID
 from tests.conftest import OTHER_USER_ID
 
 

@@ -10,22 +10,22 @@ from unittest.mock import AsyncMock, MagicMock
 from uuid import uuid4
 import pytest
 
-from enterprise_ai_platform.auth import PolicyResolver
-from enterprise_ai_platform.text_to_sql import (
+from auth import PolicyResolver
+from text_to_sql import (
     AuthorizedSchemaService,
     HybridSchemaRetriever,
     QueryIntentClassifier,
     RouterSchemaRetriever,
 )
-from enterprise_ai_platform.auth.user import (
+from auth.user import (
     AccessScope as UserAccessScope,
     UserContext,
 )
-from enterprise_ai_platform.text_to_sql import (
+from text_to_sql import (
     EntityMatchResult,
     RetrievalIntent,
 )
-from enterprise_ai_platform.text_to_sql.entity_vector_store import (
+from text_to_sql.entity_vector_store import (
     EntityVectorStore,
 )
 

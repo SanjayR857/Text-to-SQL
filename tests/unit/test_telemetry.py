@@ -4,7 +4,7 @@ Unit tests for OpenTelemetry observability and tracing utilities.
 import pytest
 from opentelemetry.trace import StatusCode
 
-from enterprise_ai_platform.core.telemetry import (
+from core.telemetry import (
     add_span_attributes,
     get_current_span_id,
     get_current_trace_id,

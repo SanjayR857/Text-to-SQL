@@ -12,25 +12,25 @@ from unittest.mock import AsyncMock, MagicMock
 from uuid import uuid4
 import pytest
 
-from enterprise_ai_platform.text_to_sql.vector_store_interfaces import IVectorStore
-from enterprise_ai_platform.text_to_sql.catalog import (
+from text_to_sql.vector_store_interfaces import IVectorStore
+from text_to_sql.catalog import (
     EnterpriseMetadataCatalog,
 )
-from enterprise_ai_platform.text_to_sql.document_builder import (
+from text_to_sql.document_builder import (
     SchemaDocumentBuilder,
 )
-from enterprise_ai_platform.text_to_sql import (
+from text_to_sql import (
     ColumnMetadataEntity,
     DatabaseSchemaEntity,
     SchemaChangeEvent,
     SchemaChangeType,
     TableMetadataEntity,
 )
-from enterprise_ai_platform.text_to_sql.introspector import (
+from text_to_sql.introspector import (
     PostgresSchemaIntrospector,
 )
-from enterprise_ai_platform.core.events import InMemoryEventBus
-from enterprise_ai_platform.text_to_sql.embedding_worker import SchemaEmbeddingWorker
+from core.events import InMemoryEventBus
+from text_to_sql.embedding_worker import SchemaEmbeddingWorker
 
 
 @pytest.fixture

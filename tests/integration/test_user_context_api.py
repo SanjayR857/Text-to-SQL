@@ -6,14 +6,14 @@ from fastapi import FastAPI
 import httpx
 import pytest
 
-from enterprise_ai_platform.api.middleware.authentication import (
+from api.middleware.authentication import (
     DEV_USER_EMAIL_HEADER,
     AuthenticationMiddleware,
 )
-from enterprise_ai_platform.api.routes.auth import router as auth_router
-from enterprise_ai_platform.core.config import Settings
-from enterprise_ai_platform.core.database import close_engine
-from enterprise_ai_platform.core.database import reset_session_factory
+from api.routes.auth import router as auth_router
+from core.config import Settings
+from core.database import close_engine
+from core.database import reset_session_factory
 
 
 @pytest.fixture

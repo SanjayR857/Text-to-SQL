@@ -5,12 +5,12 @@ from uuid import UUID, uuid4
 import pytest
 from fastapi import HTTPException, status
 
-from enterprise_ai_platform.api.dependencies import (
+from api.dependencies import (
     require_ca_admin,
     require_vertical_access,
 )
-from enterprise_ai_platform.auth.role import Area, Role
-from enterprise_ai_platform.auth.user import (
+from auth.role import Area, Role
+from auth.user import (
     AccessScope,
     RoleAssignmentContext,
     UserContext,

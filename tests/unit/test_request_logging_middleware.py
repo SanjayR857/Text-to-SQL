@@ -8,8 +8,8 @@ from fastapi import FastAPI, Request
 import httpx
 import pytest
 
-from enterprise_ai_platform.api.middleware.logging import RequestLoggingMiddleware
-from enterprise_ai_platform.auth.user import RequestIdentity, UserContext
+from api.middleware.logging import RequestLoggingMiddleware
+from auth.user import RequestIdentity, UserContext
 
 
 @pytest.fixture
@@ -46,7 +46,7 @@ def logging_app() -> FastAPI:
 @pytest.mark.asyncio
 async def test_health_endpoint_excluded_from_logging(logging_app: FastAPI):
     """Verify that requests to excluded endpoints do not emit an access log."""
-    with patch("enterprise_ai_platform.api.middleware.logging.logger.info") as mock_info:
+    with patch("api.middleware.logging.logger.info") as mock_info:
         async with httpx.AsyncClient(
             transport=httpx.ASGITransport(app=logging_app),
             base_url="http://testserver",
@@ -59,7 +59,7 @@ async def test_health_endpoint_excluded_from_logging(logging_app: FastAPI):
 @pytest.mark.asyncio
 async def test_normal_request_logs_metadata_and_duration(logging_app: FastAPI):
     """Verify normal requests log method, path, status_code, and duration_ms."""
-    with patch("enterprise_ai_platform.api.middleware.logging.logger.info") as mock_info:
+    with patch("api.middleware.logging.logger.info") as mock_info:
         async with httpx.AsyncClient(
             transport=httpx.ASGITransport(app=logging_app),
             base_url="http://testserver",
@@ -79,7 +79,7 @@ async def test_normal_request_logs_metadata_and_duration(logging_app: FastAPI):
 @pytest.mark.asyncio
 async def test_authenticated_request_logs_user_id(logging_app: FastAPI):
     """Verify authenticated requests log user_id from downstream request state."""
-    with patch("enterprise_ai_platform.api.middleware.logging.logger.info") as mock_info:
+    with patch("api.middleware.logging.logger.info") as mock_info:
         async with httpx.AsyncClient(
             transport=httpx.ASGITransport(app=logging_app),
             base_url="http://testserver",
@@ -94,7 +94,7 @@ async def test_authenticated_request_logs_user_id(logging_app: FastAPI):
 @pytest.mark.asyncio
 async def test_unhandled_exception_logs_failure(logging_app: FastAPI):
     """Verify exceptions in request handling log failure with status 500 and duration."""
-    with patch("enterprise_ai_platform.api.middleware.logging.logger.exception") as mock_exception:
+    with patch("api.middleware.logging.logger.exception") as mock_exception:
         async with httpx.AsyncClient(
             transport=httpx.ASGITransport(app=logging_app, raise_app_exceptions=False),
             base_url="http://testserver",

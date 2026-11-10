@@ -9,7 +9,7 @@ Verifies:
 import pytest
 from pydantic import ValidationError
 
-from enterprise_ai_platform.text_to_sql import (
+from text_to_sql import (
     DEFAULT_ENTITY_TABLE_CONFIGS,
     EntityTableConfig,
     EntityValueDocument,

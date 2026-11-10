@@ -5,23 +5,23 @@ from uuid import uuid4
 import pytest
 import sqlglot
 
-from enterprise_ai_platform.auth import (
+from auth import (
     AccessScope,
     ColumnPermission,
     ColumnSensitivity,
     ResolvedAccessContext,
     TablePermission,
 )
-from enterprise_ai_platform.text_to_sql import (
+from text_to_sql import (
     SqlAstValidator,
     SqlScopeResolver,
 )
-from enterprise_ai_platform.core.exceptions import (
+from core.exceptions import (
     ColumnAccessDeniedError,
     SqlSecurityError,
     TableAccessDeniedError,
 )
-from enterprise_ai_platform.auth.user import (
+from auth.user import (
     AccessScope as UserAccessScope,
     UserContext,
 )

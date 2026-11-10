@@ -9,7 +9,7 @@ import httpx
 import pytest
 import structlog
 
-from enterprise_ai_platform.api.middleware.request_id import (
+from api.middleware.request_id import (
     REQUEST_ID_HEADER,
     RequestIdMiddleware,
     validate_or_generate_request_id,

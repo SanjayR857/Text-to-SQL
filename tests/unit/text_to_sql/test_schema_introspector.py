@@ -8,12 +8,12 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 from sqlalchemy import Column, ForeignKey, Index, Integer, MetaData, String, Table, create_engine
 
-from enterprise_ai_platform.text_to_sql import (
+from text_to_sql import (
     ColumnMetadataEntity,
     DatabaseSchemaEntity,
     TableMetadataEntity,
 )
-from enterprise_ai_platform.text_to_sql.introspector import (
+from text_to_sql.introspector import (
     PostgresSchemaIntrospector,
 )
 

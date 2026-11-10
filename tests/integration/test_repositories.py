@@ -8,24 +8,24 @@ from uuid import uuid4
 import pytest
 from sqlalchemy import select
 
-from enterprise_ai_platform.api.dependencies import DEV_USER_ID
-from enterprise_ai_platform.chat.models import (
+from api.dependencies import DEV_USER_ID
+from chat.models import (
     Conversation,
     Message,
 )
-from enterprise_ai_platform.chat.repositories.conversation_repo import (
+from chat.repositories.conversation_repo import (
     ConversationRepository,
 )
-from enterprise_ai_platform.chat.repositories.feedback_repo import (
+from chat.repositories.feedback_repo import (
     FeedbackRepository,
 )
-from enterprise_ai_platform.chat.repositories.message_repo import (
+from chat.repositories.message_repo import (
     MessageRepository,
 )
-from enterprise_ai_platform.chat.repositories.summary_repo import (
+from chat.repositories.summary_repo import (
     SummaryRepository,
 )
-from enterprise_ai_platform.core.database import (
+from core.database import (
     async_db_session,
 )
 from tests.conftest import OTHER_USER_ID

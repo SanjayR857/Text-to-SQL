@@ -8,15 +8,15 @@ from fastapi import FastAPI
 import httpx
 import pytest
 
-from enterprise_ai_platform.api.dependencies import DEV_USER_ID
-from enterprise_ai_platform.api.exception_handlers import register
-from enterprise_ai_platform.api.routes.conversations import router as conv_router
-from enterprise_ai_platform.api.routes.feedback import router as feedback_router
-from enterprise_ai_platform.core.database import (
+from api.dependencies import DEV_USER_ID
+from api.exception_handlers import register
+from api.routes.conversations import router as conv_router
+from api.routes.feedback import router as feedback_router
+from core.database import (
     close_engine,
 )
-from enterprise_ai_platform.auth.models import User
-from enterprise_ai_platform.core.database import (
+from auth.models import User
+from core.database import (
     async_db_session,
     reset_session_factory,
 )

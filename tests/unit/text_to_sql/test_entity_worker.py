@@ -12,7 +12,7 @@ from unittest.mock import AsyncMock, MagicMock
 from uuid import uuid4
 import pytest
 
-from enterprise_ai_platform.text_to_sql import (
+from text_to_sql import (
     ColumnMetadataEntity,
     DatabaseSchemaEntity,
     DEFAULT_ENTITY_TABLE_CONFIGS,
@@ -22,7 +22,7 @@ from enterprise_ai_platform.text_to_sql import (
     SchemaChangeType,
     TableMetadataEntity,
 )
-from enterprise_ai_platform.text_to_sql.entity_worker import (
+from text_to_sql.entity_worker import (
     EntityEmbeddingWorker,
     _safe_format,
 )

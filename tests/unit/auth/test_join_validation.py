@@ -5,7 +5,7 @@ from uuid import uuid4
 import pytest
 import sqlglot
 
-from enterprise_ai_platform.auth import (
+from auth import (
     AccessScope,
     ApprovedJoinEdge,
     ColumnPermission,
@@ -13,8 +13,8 @@ from enterprise_ai_platform.auth import (
     ResolvedAccessContext,
     TablePermission,
 )
-from enterprise_ai_platform.core.exceptions import JoinAccessDeniedError
-from enterprise_ai_platform.auth.user import (
+from core.exceptions import JoinAccessDeniedError
+from auth.user import (
     AccessScope as UserAccessScope,
     UserContext,
 )

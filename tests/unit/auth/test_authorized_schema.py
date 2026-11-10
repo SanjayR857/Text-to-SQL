@@ -4,12 +4,12 @@ Unit tests for AuthorizedSchemaService.
 from uuid import uuid4
 import pytest
 
-from enterprise_ai_platform.auth import PolicyResolver
-from enterprise_ai_platform.text_to_sql import (
+from auth import PolicyResolver
+from text_to_sql import (
     AuthorizedSchemaService,
 )
-from enterprise_ai_platform.auth.role import Area, Role
-from enterprise_ai_platform.auth.user import (
+from auth.role import Area, Role
+from auth.user import (
     AccessScope as UserAccessScope,
     RoleAssignmentContext,
     UserContext,

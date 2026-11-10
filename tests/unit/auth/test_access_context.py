@@ -5,7 +5,7 @@ from uuid import uuid4
 import pytest
 from pydantic import ValidationError
 
-from enterprise_ai_platform.auth import (
+from auth import (
     AccessScope,
     ColumnPermission,
     ColumnSensitivity,
@@ -14,7 +14,7 @@ from enterprise_ai_platform.auth import (
     ResolvedAccessContext,
     TablePermission,
 )
-from enterprise_ai_platform.core.exceptions import (
+from core.exceptions import (
     AuthorizationError,
     ColumnAccessDeniedError,
     JoinAccessDeniedError,
@@ -22,8 +22,8 @@ from enterprise_ai_platform.core.exceptions import (
     SqlSecurityError,
     TableAccessDeniedError,
 )
-from enterprise_ai_platform.auth.role import Area, Role
-from enterprise_ai_platform.auth.user import (
+from auth.role import Area, Role
+from auth.user import (
     AccessScope as UserAccessScope,
     RoleAssignmentContext,
     UserContext,

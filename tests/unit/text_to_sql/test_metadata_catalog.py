@@ -9,12 +9,12 @@ Verifies:
 """
 import pytest
 
-from enterprise_ai_platform.text_to_sql.catalog import (
+from text_to_sql.catalog import (
     ColumnBusinessMetadata,
     EnterpriseMetadataCatalog,
     TableBusinessMetadata,
 )
-from enterprise_ai_platform.text_to_sql import (
+from text_to_sql import (
     ColumnMetadataEntity,
     DatabaseSchemaEntity,
     TableMetadataEntity,

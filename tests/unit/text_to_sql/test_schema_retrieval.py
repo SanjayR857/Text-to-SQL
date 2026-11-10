@@ -11,22 +11,22 @@ from unittest.mock import AsyncMock, MagicMock
 from uuid import uuid4
 import pytest
 
-from enterprise_ai_platform.auth import PolicyResolver
-from enterprise_ai_platform.text_to_sql.vector_store_interfaces import (
+from auth import PolicyResolver
+from text_to_sql.vector_store_interfaces import (
     IVectorStore,
     VectorSearchResult,
 )
-from enterprise_ai_platform.text_to_sql import (
+from text_to_sql import (
     AuthorizedSchemaService,
     HybridSchemaRetriever,
 )
-from enterprise_ai_platform.auth.role import Area, Role
-from enterprise_ai_platform.auth.user import (
+from auth.role import Area, Role
+from auth.user import (
     AccessScope as UserAccessScope,
     RoleAssignmentContext,
     UserContext,
 )
-from enterprise_ai_platform.text_to_sql import SchemaDocumentType
+from text_to_sql import SchemaDocumentType
 
 
 @pytest.fixture

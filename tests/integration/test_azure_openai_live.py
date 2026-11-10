@@ -7,10 +7,10 @@ handles streaming generation and vector embeddings using credentials in .env.
 from uuid import uuid4
 import pytest
 
-from enterprise_ai_platform.core.config import get_settings
-from enterprise_ai_platform.chat.protocols import GenerationContext
-from enterprise_ai_platform.providers.chat_model import AzureOpenAIGenerator
-from enterprise_ai_platform.providers.embeddings import AzureOpenAIEmbeddings
+from core.config import get_settings
+from chat.protocols import GenerationContext
+from providers.chat_model import AzureOpenAIGenerator
+from providers.embeddings import AzureOpenAIEmbeddings
 
 
 def _skip_if_mock_or_missing_creds() -> None:
