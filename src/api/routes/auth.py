@@ -4,7 +4,7 @@ Authentication and user-context endpoint router.
 from fastapi import APIRouter, Depends
 
 from api.dependencies import get_current_user_context
-from api.schemas.auth import UserContextResponse
+from schemas.auth import UserContextResponse
 from auth.user import UserContext
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])

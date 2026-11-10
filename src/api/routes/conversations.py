@@ -16,13 +16,13 @@ from api.dependencies import (
     get_message_service,
     get_streaming_orchestrator,
 )
-from api.schemas.conversation import (
+from schemas.conversation import (
     ConversationCreateRequest,
     ConversationListResponse,
     ConversationResponse,
     ConversationUpdateRequest,
 )
-from api.schemas.message import (
+from schemas.message import (
     MessageHistoryResponse,
     MessageResponse,
     MessageSubmitRequest,

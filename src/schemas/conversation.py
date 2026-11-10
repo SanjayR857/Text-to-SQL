@@ -1,4 +1,4 @@
-﻿"""
+"""
 Pydantic v2 schemas for Conversation endpoints.
 """
 from datetime import datetime

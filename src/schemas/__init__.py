@@ -1,23 +1,25 @@
 """
-API request and response schemas.
+Centralized Pydantic request and response schemas for all application endpoints.
 """
-from api.schemas.conversation import (
+from schemas.auth import UserContextResponse
+from schemas.conversation import (
     ConversationCreateRequest,
     ConversationListResponse,
     ConversationResponse,
     ConversationUpdateRequest,
 )
-from api.schemas.feedback import (
+from schemas.feedback import (
     FeedbackResponse,
     FeedbackSubmitRequest,
 )
-from api.schemas.message import (
+from schemas.message import (
     MessageHistoryResponse,
     MessageResponse,
     MessageSubmitRequest,
 )
 
 __all__ = [
+    "UserContextResponse",
     "ConversationCreateRequest",
     "ConversationUpdateRequest",
     "ConversationResponse",

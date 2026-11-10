@@ -11,7 +11,7 @@ from api.dependencies import (
     get_current_user_id,
     get_feedback_service,
 )
-from api.schemas.feedback import (
+from schemas.feedback import (
     FeedbackResponse,
     FeedbackSubmitRequest,
 )

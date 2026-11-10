@@ -14,16 +14,14 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from core.config import get_settings
 from core.database import Base
-from auth.models import User
-from chat.models import (
+from models import (
     Conversation,
     ConversationSummary,
+    EntityEmbeddingModel,
     Message,
     MessageFeedback,
-)
-from text_to_sql.models import (
-    EntityEmbeddingModel,
     SchemaEmbeddingModel,
+    User,
 )
 
 # Alembic Config object, providing access to the values within alembic.ini

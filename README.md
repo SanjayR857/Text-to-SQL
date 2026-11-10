@@ -474,16 +474,22 @@ Text-to-SQL/                               # Project root
 │   │   │   ├── logging.py                 #   Structured request logging
 │   │   │   ├── request_id.py              #   Correlation / request ID injection
 │   │   │   └── security_headers.py        #   Security response headers (OWASP)
-│   │   ├── routes/                        # API routers & endpoint controllers
-│   │   │   ├── auth.py                    #   Token exchange & session endpoints
-│   │   │   ├── conversations.py           #   Conversation & multi-turn message endpoints
-│   │   │   ├── feedback.py                #   Message feedback & rating endpoints
-│   │   │   └── health.py                  #   Liveness & readiness probes
-│   │   └── schemas/                       # Pydantic v2 request/response schemas
-│   │       ├── auth.py                    #   Authentication schemas
-│   │       ├── conversation.py            #   Conversation metadata schemas
-│   │       ├── feedback.py                #   Feedback rating & comment schemas
-│   │       └── message.py                 #   Chat & message schemas
+│   │   └── routes/                        # API routers & endpoint controllers
+│   │       ├── auth.py                    #   Token exchange & session endpoints
+│   │       ├── conversations.py           #   Conversation & multi-turn message endpoints
+│   │       ├── feedback.py                #   Message feedback & rating endpoints
+│   │       └── health.py                  #   Liveness & readiness probes
+│   │
+│   ├── models/                            # Centralized SQLAlchemy 2.0 Database Models
+│   │   ├── chat.py                        #   Conversation, Message, Feedback, Summary models
+│   │   ├── text_to_sql.py                 #   SchemaEmbeddingModel, EntityEmbeddingModel
+│   │   └── user.py                        #   User platform identity model
+│   │
+│   ├── schemas/                           # Centralized Pydantic v2 Request/Response Schemas
+│   │   ├── auth.py                        #   Authentication & context schemas
+│   │   ├── conversation.py                #   Conversation CRUD schemas
+│   │   ├── feedback.py                    #   Message feedback schemas
+│   │   └── message.py                     #   Message & history schemas
 │   │
 │   ├── core/                              # Cross-cutting platform foundation
 │   │   ├── config.py                      #   pydantic-settings environment configuration
