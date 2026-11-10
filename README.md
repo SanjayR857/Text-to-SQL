@@ -476,145 +476,86 @@ Text-to-SQL/                               # Project root
 │       │   │   ├── request_id.py          #   Correlation / request ID injection
 │       │   │   └── security_headers.py    #   Security response headers (OWASP)
 │       │   ├── routes/                    # API routers & endpoint controllers
-│       │   │   ├── admin.py               #   User management & administrative endpoints
 │       │   │   ├── auth.py                #   Token exchange & session endpoints
 │       │   │   ├── conversations.py       #   Conversation & multi-turn message endpoints
-│       │   │   ├── databases.py           #   Database registration & Text-to-SQL endpoints
-│       │   │   ├── documents.py           #   Document upload & search endpoints
 │       │   │   ├── feedback.py            #   Message feedback & rating endpoints
 │       │   │   └── health.py              #   Liveness & readiness probes
 │       │   └── schemas/                   # Pydantic v2 request/response schemas
 │       │       ├── auth.py                #   Authentication schemas
-│       │       ├── common.py              #   Shared pagination & primitives
 │       │       ├── conversation.py        #   Conversation metadata schemas
-│       │       ├── database.py            #   Database metadata & query schemas
-│       │       ├── document.py            #   Document upload & search schemas
 │       │       ├── feedback.py            #   Feedback rating & comment schemas
 │       │       └── message.py             #   Chat & message schemas
 │       │
-│       ├── application/                   # Application layer (Hexagonal Architecture)
-│       │   ├── authorization/             #   Authorization policies & services
-│       │   │   ├── access_policy.py       #     Base access policy definitions
-│       │   │   ├── row_access.py          #     Row-level security filter resolution
-│       │   │   ├── user_context_service.py#     User role & vertical context builder
-│       │   │   └── vertical_access.py     #     Vertical (business-unit) column access
-│       │   ├── conversations/             #   Conversation application services
-│       │   │   ├── context_service.py     #     Context window & token budget management
-│       │   │   ├── conversation_service.py#     Conversation lifecycle management
-│       │   │   ├── feedback_service.py    #     User feedback collection service
-│       │   │   ├── message_service.py     #     Message persistence & retrieval service
-│       │   │   └── streaming_orchestrator.py #  SSE token streaming coordinator
-│       │   ├── document_intelligence/     #   Document processing application logic
-│       │   │   ├── document_chunking.py   #     Text chunking strategies
-│       │   │   ├── document_ingestion.py  #     Ingestion & extraction coordinator
-│       │   │   └── document_retrieval.py  #     Document search & retrieval coordinator
-│       │   ├── interfaces/                #   Abstract ports (dependency inversion contracts)
-│       │   │   ├── checkpoint_store.py    #     Checkpoint storage port
-│       │   │   ├── document_parser.py     #     Document parsing contract
-│       │   │   ├── document_storage.py    #     Blob storage contract
-│       │   │   ├── embedding_provider.py  #     Vector embeddings contract
-│       │   │   ├── llm_provider.py        #     LLM chat generation contract
-│       │   │   ├── retriever.py           #     Vector & hybrid retriever contract
-│       │   │   ├── sql_executor.py        #     Database query execution contract
-│       │   │   └── vector_store.py        #     Vector store contract
-│       │   └── structured_data/           #   Text-to-SQL application services
-│       │       ├── entity_retrieval.py    #     Named entity & categorical value resolution
-│       │       ├── schema_retrieval.py    #     Database schema introspection service
-│       │       ├── sql_generation.py      #     SQL prompt assembly & LLM generation
-│       │       └── sql_validation.py      #     Syntax & semantic validation service
-│       │
-│       ├── core/                          # Cross-cutting platform concerns
+│       ├── core/                          # Cross-cutting platform foundation
 │       │   ├── config.py                  #   pydantic-settings environment configuration
 │       │   ├── constants.py               #   Application constants & defaults
+│       │   ├── database.py                #   SQLAlchemy Base, AsyncEngine & Session factory
+│       │   ├── events.py                  #   In-memory async event bus
 │       │   ├── exceptions.py              #   Domain & application exception hierarchy
 │       │   ├── logging.py                 #   structlog configuration & processors
 │       │   └── telemetry.py               #   OpenTelemetry traces & metrics setup
 │       │
-│       ├── domain/                        # Pure domain model (framework-agnostic)
-│       │   ├── common.py                  #   Base entities & value objects
-│       │   ├── conversations/             #   Conversation & message aggregates
-│       │   │   ├── conversation.py        #     Conversation aggregate root
-│       │   │   ├── exceptions.py          #     Domain conversation exceptions
-│       │   │   ├── message.py             #     Message entity & role definitions
-│       │   │   └── protocols.py           #     Conversation domain protocols
-│       │   ├── documents/                 #   Document & chunk entities
-│       │   │   ├── chunk.py               #     Document chunk entity
-│       │   │   └── document.py            #     Document aggregate root
-│       │   ├── identity/                  #   Identity & RBAC domain
-│       │   │   ├── permission.py          #     Granular permission definitions
-│       │   │   ├── role.py                #     Role & hierarchy definitions
-│       │   │   └── user.py                #     User identity entity
-│       │   ├── retrieval/                 #   Search & retrieval value objects
-│       │   │   ├── retrieval_filter.py    #     Metadata filter criteria
-│       │   │   └── search_result.py       #     Scored search result object
-│       │   └── structured_data/           #   Relational database domain models
-│       │       ├── database_schema.py     #     Database catalog & table schema entities
-│       │       ├── sql_query.py           #     SQL query AST & execution plan
-│       │       └── table_metadata.py      #     Column, type, and constraint definitions
+│       ├── auth/                          # Security, RBAC & Data Governance
+│       │   ├── access_context.py          #   Resolved access context & table permissions
+│       │   ├── handlers/                  #   Vertical policy handlers (attendance, project, etc.)
+│       │   ├── join_validation.py         #   JoinGraphValidator & approved enterprise joins
+│       │   ├── models.py                  #   User SQLAlchemy ORM model
+│       │   ├── policy_resolver.py         #   RBAC policy resolution engine
+│       │   ├── predicate_spec.py          #   Row-level predicate generation specifications
+│       │   ├── repository.py              #   UserContextRepository
+│       │   ├── role.py                    #   Role & Area enums
+│       │   ├── user.py                    #   UserContext & RequestIdentity value objects
+│       │   └── user_context_service.py    #   User identity & vertical assignment service
 │       │
-│       ├── infrastructure/                # Technology adapters & concrete implementations
-│       │   ├── cache.py                   #   Redis cache adapter
-│       │   ├── messaging.py               #   Asynchronous messaging / event publisher
-│       │   ├── database/                  #   PostgreSQL & SQLAlchemy engine
-│       │   │   ├── base.py                #     Declarative Base & ORM metadata
-│       │   │   ├── connection_manager.py  #     Database connection lifecycle
-│       │   │   ├── session.py             #     Async session factory
-│       │   │   ├── models/                #     SQLAlchemy ORM models
-│       │   │   │   ├── chat.py            #       Chat schema models
-│       │   │   │   ├── conversation.py    #       Conversation, message & feedback models
-│       │   │   │   └── user.py            #       User, role & vertical models
-│       │   │   └── repositories/          #     Database repository implementations
-│       │   │       ├── conversation_repo.py #   Conversation CRUD operations
-│       │   │       ├── feedback_repo.py   #     Feedback CRUD operations
-│       │   │       ├── message_repo.py    #     Message history operations
-│       │   │       ├── summary_repo.py    #     Conversation summary operations
-│       │   │       └── user_context_repository.py # User context & RBAC queries
-│       │   ├── document_processing/       #   Parsers & extractors
-│       │   │   ├── docling_parser.py      #     Docling document parser
-│       │   │   └── ocr_parser.py          #     OCR extraction adapter
-│       │   ├── llm/                       #   LLM providers & clients
-│       │   │   ├── chat_model.py          #     Chat model adapter
-│       │   │   ├── client.py              #     Azure OpenAI client initialization
-│       │   │   └── embeddings.py          #     Embedding model adapter
-│       │   ├── retrieval/                 #   Vector search backends
-│       │   │   ├── azure_ai_search/       #     Azure AI Search
-│       │   │   │   ├── index_manager.py   #       Index schema management
-│       │   │   │   └── search_client.py   #       Vector/hybrid query client
-│       │   │   └── pgvector/              #     pgvector (PostgreSQL)
-│       │   │       ├── search_repository.py #   pgvector similarity search
-│       │   │       └── vector_store.py    #     Vector store adapter
-│       │   ├── storage/                   #   Binary & file storage
-│       │   │   ├── azure_blob.py          #     Azure Blob Storage client
-│       │   │   └── local_storage.py       #     Local filesystem storage fallback
-│       │   └── streaming/                 #   Streaming & SSE helpers
-│       │       ├── mock_ai_generator.py   #     Development / mock stream generator
-│       │       └── sse_formatter.py       #     Server-Sent Events formatter
+│       ├── text_to_sql/                   # Core Text-to-SQL Engine & pgvector Catalog
+│       │   ├── ast_validator.py           #   SQL AST validator & security enforcer
+│       │   ├── authorized_schema.py       #   Schema projection & filtering by user context
+│       │   ├── catalog.py                 #   MetadataCatalog for table/column business descriptions
+│       │   ├── document_builder.py        #   Schema & entity document builder
+│       │   ├── embedding_worker.py        #   Async schema embedding sync worker
+│       │   ├── entity_document.py         #   Entity document definitions & builders
+│       │   ├── entity_vector_store.py     #   pgvector store & LlamaIndex retriever for entities
+│       │   ├── entity_worker.py           #   Async entity embedding sync worker
+│       │   ├── intent_classifier.py       #   Query intent classifier
+│       │   ├── introspector.py            #   PostgreSQL schema introspector
+│       │   ├── metadata.py                #   Table & column metadata entities
+│       │   ├── models.py                  #   SchemaEmbeddingModel & EntityEmbeddingModel ORM
+│       │   ├── policy_enforcer.py         #   SQL policy enforcer
+│       │   ├── predicate_injector.py      #   Row-level predicate injection
+│       │   ├── retrieval.py               #   Hybrid schema retrieval service
+│       │   ├── retriever_interface.py     #   ISchemaRetriever abstract port
+│       │   ├── router_retriever.py        #   Router-based schema retriever
+│       │   ├── schema.py                  #   DatabaseSchemaEntity & catalog models
+│       │   ├── schema_document.py         #   Schema document definitions & hashing
+│       │   ├── schema_events.py           #   SchemaChangeEvent & SchemaChangeType
+│       │   ├── schema_vector_store.py     #   pgvector store & LlamaIndex retriever for schemas
+│       │   ├── scope_resolver.py          #   SQL scope resolver
+│       │   └── vector_store_interfaces.py #   IVectorStore abstract port & search results
 │       │
-│       ├── orchestration/                 # LangGraph workflows & state machines
-│       │   ├── checkpointer.py            #   PostgreSQL checkpointing adapter
-│       │   ├── registry.py                #   Workflow graph registry
-│       │   ├── state.py                   #   Shared TypedDict state definitions
-│       │   ├── graphs/                    #   Compiled StateGraph definitions
-│       │   │   ├── chat_graph.py          #     Conversational chat workflow
-│       │   │   ├── document_rag_graph.py  #     Document RAG workflow
-│       │   │   ├── hybrid_rag_graph.py    #     Unified hybrid RAG workflow
-│       │   │   └── text_to_sql_graph.py   #     Text-to-SQL generation workflow
-│       │   └── nodes/                     #   LangGraph workflow nodes
-│       │       ├── auth_nodes.py          #     Identity & permission checks
-│       │       ├── common_nodes.py        #     Response formatting & error handling
-│       │       ├── rag_nodes.py           #     Retrieval & generation nodes
-│       │       ├── routing_nodes.py       #     Intent classification & routing
-│       │       └── sql_nodes.py           #     SQL generation & validation nodes
+│       ├── chat/                          # Conversational Management & Streaming
+│       │   ├── context_service.py         #   Context window & token budget management
+│       │   ├── conversation.py            #   Conversation entities & enums
+│       │   ├── exceptions.py              #   Chat domain exceptions
+│       │   ├── feedback_service.py        #   User feedback collection service
+│       │   ├── message.py                 #   Message entities & role definitions
+│       │   ├── message_service.py         #   Message persistence & retrieval service
+│       │   ├── mock_ai_generator.py       #   Development / mock stream generator
+│       │   ├── models.py                  #   Conversation, Message & Feedback ORM models
+│       │   ├── protocols.py               #   AIGeneratorProtocol & streaming contracts
+│       │   ├── repositories/              #   Database repository implementations
+│       │   │   ├── conversation_repo.py   #     Conversation CRUD operations
+│       │   │   ├── feedback_repo.py       #     Feedback CRUD operations
+│       │   │   ├── message_repo.py        #     Message history operations
+│       │   │   └── summary_repo.py        #     Conversation summary operations
+│       │   ├── service.py                 #   Conversation lifecycle service
+│       │   ├── sse_formatter.py           #   Server-Sent Events formatter
+│       │   └── streaming_orchestrator.py  #   SSE token streaming coordinator
 │       │
-│       ├── security/                      # Guardrails & safety filters
-│       │   ├── pii_detection.py           #   PII detection & redaction
-│       │   ├── prompt_injection.py        #   Prompt injection protection
-│       │   └── sql_guardrails.py          #   SQL AST validation & safety checks
-│       │
-│       └── workers/                       # Background task workers
-│           ├── document_worker.py         #   Async document ingestion worker
-│           ├── embedding_worker.py        #   Async batch embedding worker
-│           └── indexing_worker.py         #   Async search indexing worker
+│       └── providers/                     # External AI Model Integrations
+│           ├── azure_openai_client.py     #   Azure OpenAI client initialization & lifecycle
+│           ├── chat_model.py              #   AzureOpenAIChatModel adapter
+│           ├── embeddings.py              #   AzureOpenAIEmbeddings adapter
+│           └── interfaces.py              #   LLMProviderProtocol & EmbeddingProviderProtocol
 │
 ├── frontend/                              # Frontend client applications
 │   ├── chainlit/                          # Chainlit interactive UI
@@ -628,32 +569,10 @@ Text-to-SQL/                               # Project root
 │   └── sql/                               # SQL DDL & seed scripts
 │       ├── all_schema.sql                 # Consolidated database schema
 │       ├── schema/                        # Table DDL schemas
-│       │   ├── all_schema.sql
-│       │   ├── create_audit_log.sql
-│       │   ├── create_chief_goals_and_recognition.sql
-│       │   ├── create_demand.sql
-│       │   ├── create_employee_and_firm.sql
-│       │   ├── create_happiness.sql
-│       │   ├── create_kpi_and_appraisal.sql
-│       │   ├── create_office_attendance.sql
-│       │   ├── create_partner_and_em_goals.sql
-│       │   ├── create_projects_and_contracts.sql
-│       │   ├── create_rro_engagement.sql
-│       │   ├── create_talent_gps.sql
-│       │   ├── create_vertical_and_role_assignment.sql
-│       │   └── create_xable.sql
 │       └── insert/                        # Seed data SQL scripts
-│           ├── insert_projects_and_contracts.sql
-│           ├── insert_role_assignments.sql
-│           ├── insert_users.sql
-│           └── insert_verticals.sql
 │
 ├── tests/                                 # Test suite
 │   ├── conftest.py                        # Pytest fixtures and test setup
-│   ├── architecture/                      # Architecture & boundary tests
-│   ├── e2e/                               # End-to-end API tests
-│   ├── orchestration/                     # LangGraph workflow tests
-│   ├── security/                          # Security & guardrail tests
 │   ├── integration/                       # Integration tests
 │   │   ├── test_azure_openai_live.py
 │   │   ├── test_conversation_api.py
@@ -661,6 +580,8 @@ Text-to-SQL/                               # Project root
 │   │   ├── test_streaming.py
 │   │   └── test_user_context_api.py
 │   └── unit/                              # Unit tests
+│       ├── auth/                          # RBAC and authorization unit tests
+│       ├── text_to_sql/                   # Text-to-SQL & catalog unit tests
 │       ├── test_auth_middleware.py
 │       ├── test_azure_openai.py
 │       ├── test_conversation_domain.py

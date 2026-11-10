@@ -9,7 +9,7 @@ import httpx
 import pytest
 
 from enterprise_ai_platform.api.middleware.logging import RequestLoggingMiddleware
-from enterprise_ai_platform.domain.identity.user import RequestIdentity, UserContext
+from enterprise_ai_platform.auth.user import RequestIdentity, UserContext
 
 
 @pytest.fixture

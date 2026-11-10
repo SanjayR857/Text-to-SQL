@@ -6,7 +6,7 @@ from uuid import UUID
 
 import pytest
 
-from enterprise_ai_platform.application.authorization.user_context_service import (
+from enterprise_ai_platform.auth.user_context_service import (
     UserContextService,
 )
 from enterprise_ai_platform.core.exceptions import (
@@ -15,8 +15,8 @@ from enterprise_ai_platform.core.exceptions import (
     NoActiveAssignmentsError,
     UserNotFoundError,
 )
-from enterprise_ai_platform.domain.identity.role import Area, Role
-from enterprise_ai_platform.infrastructure.database.repositories.user_context_repository import (
+from enterprise_ai_platform.auth.role import Area, Role
+from enterprise_ai_platform.auth.repository import (
     UserContextRepository,
 )
 

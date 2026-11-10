@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends
 
 from enterprise_ai_platform.api.dependencies import get_current_user_context
 from enterprise_ai_platform.api.schemas.auth import UserContextResponse
-from enterprise_ai_platform.domain.identity.user import UserContext
+from enterprise_ai_platform.auth.user import UserContext
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 

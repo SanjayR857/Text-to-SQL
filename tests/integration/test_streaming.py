@@ -24,28 +24,28 @@ from enterprise_ai_platform.api.dependencies import (
 from enterprise_ai_platform.api.exception_handlers import register
 from enterprise_ai_platform.api.routes.conversations import router as conv_router
 from enterprise_ai_platform.api.routes.feedback import router as feedback_router
-from enterprise_ai_platform.domain.conversations.protocols import (
+from enterprise_ai_platform.chat.protocols import (
     GenerationContext,
     StreamChunk,
 )
-from enterprise_ai_platform.infrastructure.database.connection_manager import (
+from enterprise_ai_platform.core.database import (
     close_engine,
 )
-from enterprise_ai_platform.infrastructure.database.models.conversation import (
+from enterprise_ai_platform.chat.models import (
     Conversation,
     Message,
 )
-from enterprise_ai_platform.infrastructure.database.models.user import User
-from enterprise_ai_platform.infrastructure.database.session import (
+from enterprise_ai_platform.auth.models import User
+from enterprise_ai_platform.core.database import (
     async_db_session,
     get_session_factory,
     reset_session_factory,
 )
-from enterprise_ai_platform.infrastructure.streaming.mock_ai_generator import (
+from enterprise_ai_platform.chat.mock_ai_generator import (
     MockAIGenerator,
     MockTitleGenerator,
 )
-from enterprise_ai_platform.infrastructure.streaming.sse_formatter import (
+from enterprise_ai_platform.chat.sse_formatter import (
     SSEFormatter,
 )
 
@@ -318,7 +318,7 @@ async def test_generator_failure_handling():
 @pytest.mark.asyncio
 async def test_client_disconnect_saves_partial_content():
     """Verify that client cancellation preserves partial tokens and releases lock."""
-    from enterprise_ai_platform.application.conversations.streaming_orchestrator import (
+    from enterprise_ai_platform.chat.streaming_orchestrator import (
         StreamingOrchestrator,
     )
 
@@ -334,7 +334,7 @@ async def test_client_disconnect_saves_partial_content():
 
     # Create conversation
     async with async_db_session() as session:
-        from enterprise_ai_platform.infrastructure.database.repositories.conversation_repo import (
+        from enterprise_ai_platform.chat.repositories.conversation_repo import (
             ConversationRepository,
         )
         conv_repo = ConversationRepository(session)
@@ -372,7 +372,7 @@ async def test_client_disconnect_saves_partial_content():
 @pytest.mark.asyncio
 async def test_timeout_handling():
     """Verify that exceeding global timeout interrupts generation and emits timeout error event."""
-    from enterprise_ai_platform.application.conversations.streaming_orchestrator import (
+    from enterprise_ai_platform.chat.streaming_orchestrator import (
         StreamingOrchestrator,
     )
 
@@ -389,7 +389,7 @@ async def test_timeout_handling():
     )
 
     async with async_db_session() as session:
-        from enterprise_ai_platform.infrastructure.database.repositories.conversation_repo import (
+        from enterprise_ai_platform.chat.repositories.conversation_repo import (
             ConversationRepository,
         )
         conv_repo = ConversationRepository(session)
@@ -434,7 +434,7 @@ async def test_timeout_handling():
 @pytest.mark.asyncio
 async def test_keepalive_emitted_during_delay():
     """Verify that keepalive comment lines are emitted when token generation has latency."""
-    from enterprise_ai_platform.application.conversations.streaming_orchestrator import (
+    from enterprise_ai_platform.chat.streaming_orchestrator import (
         StreamingOrchestrator,
     )
 
@@ -452,7 +452,7 @@ async def test_keepalive_emitted_during_delay():
     )
 
     async with async_db_session() as session:
-        from enterprise_ai_platform.infrastructure.database.repositories.conversation_repo import (
+        from enterprise_ai_platform.chat.repositories.conversation_repo import (
             ConversationRepository,
         )
         conv_repo = ConversationRepository(session)
@@ -510,13 +510,13 @@ async def test_background_titling_execution():
 @pytest.mark.asyncio
 async def test_background_summarization_execution():
     """Verify that background summarization creates a new version when threshold is met."""
-    from enterprise_ai_platform.application.conversations.streaming_orchestrator import (
+    from enterprise_ai_platform.chat.streaming_orchestrator import (
         StreamingOrchestrator,
     )
-    from enterprise_ai_platform.infrastructure.database.models.conversation import (
+    from enterprise_ai_platform.chat.models import (
         ConversationSummary,
     )
-    from enterprise_ai_platform.infrastructure.streaming.mock_ai_generator import (
+    from enterprise_ai_platform.chat.mock_ai_generator import (
         MockSummaryGenerator,
     )
 
@@ -529,7 +529,7 @@ async def test_background_summarization_execution():
     )
 
     async with async_db_session() as session:
-        from enterprise_ai_platform.infrastructure.database.repositories.conversation_repo import (
+        from enterprise_ai_platform.chat.repositories.conversation_repo import (
             ConversationRepository,
         )
         conv_repo = ConversationRepository(session)

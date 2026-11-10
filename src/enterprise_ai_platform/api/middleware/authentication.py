@@ -13,7 +13,7 @@ from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.types import ASGIApp
 
-from enterprise_ai_platform.application.authorization import UserContextService
+from enterprise_ai_platform.auth import UserContextService
 from enterprise_ai_platform.core.config import Settings, get_settings
 from enterprise_ai_platform.core.exceptions import (
     DatabaseUnavailableError,
@@ -21,11 +21,11 @@ from enterprise_ai_platform.core.exceptions import (
     NoActiveAssignmentsError,
     UserNotFoundError,
 )
-from enterprise_ai_platform.domain.identity.user import RequestIdentity
-from enterprise_ai_platform.infrastructure.database.repositories.user_context_repository import (
+from enterprise_ai_platform.auth.user import RequestIdentity
+from enterprise_ai_platform.auth.repository import (
     UserContextRepository,
 )
-from enterprise_ai_platform.infrastructure.database.session import get_session_factory
+from enterprise_ai_platform.core.database import get_session_factory
 
 logger = structlog.get_logger(__name__)
 

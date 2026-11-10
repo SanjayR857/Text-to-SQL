@@ -6,47 +6,47 @@ from uuid import UUID
 from fastapi import Depends, Header, HTTPException, Request, status
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from enterprise_ai_platform.domain.identity.role import Role
-from enterprise_ai_platform.domain.identity.user import RequestIdentity, UserContext
+from enterprise_ai_platform.auth.role import Role
+from enterprise_ai_platform.auth.user import RequestIdentity, UserContext
 
-from enterprise_ai_platform.application.conversations.context_service import ContextService
-from enterprise_ai_platform.application.conversations.conversation_service import (
+from enterprise_ai_platform.chat.context_service import ContextService
+from enterprise_ai_platform.chat.service import (
     ConversationService,
 )
-from enterprise_ai_platform.application.conversations.feedback_service import FeedbackService
-from enterprise_ai_platform.application.conversations.message_service import MessageService
-from enterprise_ai_platform.application.conversations.streaming_orchestrator import (
+from enterprise_ai_platform.chat.feedback_service import FeedbackService
+from enterprise_ai_platform.chat.message_service import MessageService
+from enterprise_ai_platform.chat.streaming_orchestrator import (
     StreamingOrchestrator,
 )
 from enterprise_ai_platform.core.config import get_settings
-from enterprise_ai_platform.domain.conversations.protocols import (
+from enterprise_ai_platform.chat.protocols import (
     AIGeneratorProtocol,
     SummaryGeneratorProtocol,
     TitleGeneratorProtocol,
 )
-from enterprise_ai_platform.infrastructure.database.repositories.conversation_repo import (
+from enterprise_ai_platform.chat.repositories.conversation_repo import (
     ConversationRepository,
 )
-from enterprise_ai_platform.infrastructure.database.repositories.feedback_repo import (
+from enterprise_ai_platform.chat.repositories.feedback_repo import (
     FeedbackRepository,
 )
-from enterprise_ai_platform.infrastructure.database.repositories.message_repo import (
+from enterprise_ai_platform.chat.repositories.message_repo import (
     MessageRepository,
 )
-from enterprise_ai_platform.infrastructure.database.repositories.summary_repo import (
+from enterprise_ai_platform.chat.repositories.summary_repo import (
     SummaryRepository,
 )
-from enterprise_ai_platform.infrastructure.database.session import (
+from enterprise_ai_platform.core.database import (
     get_db_session,
     get_session_factory,
 )
-from enterprise_ai_platform.infrastructure.llm import (
+from enterprise_ai_platform.providers import (
     AzureOpenAIEmbeddings,
     AzureOpenAIGenerator,
     AzureOpenAISummaryGenerator,
     AzureOpenAITitleGenerator,
 )
-from enterprise_ai_platform.infrastructure.streaming.mock_ai_generator import (
+from enterprise_ai_platform.chat.mock_ai_generator import (
     MockAIGenerator,
     MockSummaryGenerator,
     MockTitleGenerator,

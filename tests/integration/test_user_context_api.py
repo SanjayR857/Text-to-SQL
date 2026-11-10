@@ -12,8 +12,8 @@ from enterprise_ai_platform.api.middleware.authentication import (
 )
 from enterprise_ai_platform.api.routes.auth import router as auth_router
 from enterprise_ai_platform.core.config import Settings
-from enterprise_ai_platform.infrastructure.database.connection_manager import close_engine
-from enterprise_ai_platform.infrastructure.database.session import reset_session_factory
+from enterprise_ai_platform.core.database import close_engine
+from enterprise_ai_platform.core.database import reset_session_factory
 
 
 @pytest.fixture

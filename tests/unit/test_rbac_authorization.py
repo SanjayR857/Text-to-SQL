@@ -9,8 +9,8 @@ from enterprise_ai_platform.api.dependencies import (
     require_ca_admin,
     require_vertical_access,
 )
-from enterprise_ai_platform.domain.identity.role import Area, Role
-from enterprise_ai_platform.domain.identity.user import (
+from enterprise_ai_platform.auth.role import Area, Role
+from enterprise_ai_platform.auth.user import (
     AccessScope,
     RoleAssignmentContext,
     UserContext,

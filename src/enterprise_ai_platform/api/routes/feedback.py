@@ -15,7 +15,7 @@ from enterprise_ai_platform.api.schemas.feedback import (
     FeedbackResponse,
     FeedbackSubmitRequest,
 )
-from enterprise_ai_platform.application.conversations.feedback_service import FeedbackService
+from enterprise_ai_platform.chat.feedback_service import FeedbackService
 
 router = APIRouter(prefix="/conversations/{conversation_id}", tags=["Feedback"])
 

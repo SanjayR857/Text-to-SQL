@@ -5,17 +5,17 @@ from unittest.mock import AsyncMock, MagicMock
 from uuid import uuid4
 import pytest
 
-from enterprise_ai_platform.domain.conversations.protocols import (
+from enterprise_ai_platform.chat.protocols import (
     ContextMessage,
     GenerationContext,
     StreamChunk,
 )
-from enterprise_ai_platform.infrastructure.llm.chat_model import (
+from enterprise_ai_platform.providers.chat_model import (
     AzureOpenAIGenerator,
     AzureOpenAISummaryGenerator,
     AzureOpenAITitleGenerator,
 )
-from enterprise_ai_platform.infrastructure.llm.embeddings import AzureOpenAIEmbeddings
+from enterprise_ai_platform.providers.embeddings import AzureOpenAIEmbeddings
 
 
 @pytest.fixture

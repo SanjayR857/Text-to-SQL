@@ -12,7 +12,7 @@ from enterprise_ai_platform.api.middleware.authentication import (
     AuthenticationMiddleware,
 )
 from enterprise_ai_platform.core.config import Settings
-from enterprise_ai_platform.domain.identity.user import RequestIdentity
+from enterprise_ai_platform.auth.user import RequestIdentity
 
 
 def create_test_app(settings: Settings) -> FastAPI:

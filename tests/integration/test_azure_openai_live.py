@@ -8,9 +8,9 @@ from uuid import uuid4
 import pytest
 
 from enterprise_ai_platform.core.config import get_settings
-from enterprise_ai_platform.domain.conversations.protocols import GenerationContext
-from enterprise_ai_platform.infrastructure.llm.chat_model import AzureOpenAIGenerator
-from enterprise_ai_platform.infrastructure.llm.embeddings import AzureOpenAIEmbeddings
+from enterprise_ai_platform.chat.protocols import GenerationContext
+from enterprise_ai_platform.providers.chat_model import AzureOpenAIGenerator
+from enterprise_ai_platform.providers.embeddings import AzureOpenAIEmbeddings
 
 
 def _skip_if_mock_or_missing_creds() -> None:

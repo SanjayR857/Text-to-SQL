@@ -5,7 +5,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from enterprise_ai_platform.domain.identity.user import AccessScope, RoleAssignmentContext
+from enterprise_ai_platform.auth.user import AccessScope, RoleAssignmentContext
 
 
 class UserContextResponse(BaseModel):

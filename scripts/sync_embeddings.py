@@ -19,19 +19,19 @@ from sqlalchemy.ext.asyncio import AsyncEngine
 import structlog
 
 from enterprise_ai_platform.core.logging import setup_logging
-from enterprise_ai_platform.infrastructure.database.connection_manager import (
+from enterprise_ai_platform.core.database import (
     close_engine,
     get_async_engine,
 )
-from enterprise_ai_platform.infrastructure.llm.embeddings import AzureOpenAIEmbeddings
-from enterprise_ai_platform.infrastructure.retrieval.pgvector.entity_vector_store import (
+from enterprise_ai_platform.providers.embeddings import AzureOpenAIEmbeddings
+from enterprise_ai_platform.text_to_sql.entity_vector_store import (
     EntityVectorStore,
 )
-from enterprise_ai_platform.infrastructure.retrieval.pgvector.schema_vector_store import (
+from enterprise_ai_platform.text_to_sql.schema_vector_store import (
     SchemaVectorStore,
 )
-from enterprise_ai_platform.workers.embedding_worker import SchemaEmbeddingWorker
-from enterprise_ai_platform.workers.entity_worker import EntityEmbeddingWorker
+from enterprise_ai_platform.text_to_sql.embedding_worker import SchemaEmbeddingWorker
+from enterprise_ai_platform.text_to_sql.entity_worker import EntityEmbeddingWorker
 
 logger = structlog.get_logger(__name__)
 

@@ -6,14 +6,14 @@ from uuid import uuid4
 
 import pytest
 
-from enterprise_ai_platform.domain.conversations.conversation import (
+from enterprise_ai_platform.chat.conversation import (
     ConversationEntity,
     ConversationStatus,
     ConversationSummaryEntity,
     GenerationStatus,
     TitleSource,
 )
-from enterprise_ai_platform.domain.conversations.exceptions import (
+from enterprise_ai_platform.chat.exceptions import (
     ChatDomainException,
     ConversationNotFoundError,
     DuplicateMessageError,
@@ -23,18 +23,18 @@ from enterprise_ai_platform.domain.conversations.exceptions import (
     MessageNotFoundError,
     StaleSummaryError,
 )
-from enterprise_ai_platform.domain.conversations.message import (
+from enterprise_ai_platform.chat.message import (
     MessageEntity,
     MessageFeedbackEntity,
     MessageRole,
     MessageStatus,
 )
-from enterprise_ai_platform.domain.conversations.protocols import (
+from enterprise_ai_platform.chat.protocols import (
     ContextMessage,
     GenerationContext,
     StreamChunk,
 )
-from enterprise_ai_platform.infrastructure.streaming.sse_formatter import (
+from enterprise_ai_platform.chat.sse_formatter import (
     SSEFormatter,
 )
 

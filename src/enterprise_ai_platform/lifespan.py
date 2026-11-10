@@ -18,8 +18,8 @@ from fastapi import FastAPI
 
 from enterprise_ai_platform.core.logging import setup_logging
 from enterprise_ai_platform.core.telemetry import setup_telemetry
-from enterprise_ai_platform.infrastructure.database.connection_manager import close_engine
-from enterprise_ai_platform.infrastructure.llm import close_azure_openai_client
+from enterprise_ai_platform.core.database import close_engine
+from enterprise_ai_platform.providers import close_azure_openai_client
 
 
 @asynccontextmanager
