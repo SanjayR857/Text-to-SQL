@@ -8,7 +8,7 @@ from openai import AsyncAzureOpenAI, AzureOpenAI
 import structlog
 
 from core.config import get_settings
-from core.telemetry import trace_span
+from core.observability import trace_span
 from providers.azure_openai_client import (
     get_azure_openai_client,
     get_sync_azure_openai_client,

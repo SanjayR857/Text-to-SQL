@@ -28,13 +28,13 @@ from core.exceptions import (
     TableAccessDeniedError,
     UserNotFoundError,
 )
-from core.logger import setup_logging
-from core.telemetry import (
+from core.observability import (
     add_span_attributes,
     get_current_span_id,
     get_current_trace_id,
     get_meter,
     get_tracer,
+    setup_logging,
     setup_telemetry,
     trace_span,
 )

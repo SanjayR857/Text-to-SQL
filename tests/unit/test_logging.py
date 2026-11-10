@@ -7,7 +7,7 @@ import logging
 
 import structlog
 
-from core.logger import setup_logging
+from core.observability import setup_logging
 
 
 def test_setup_logging_json_renderer():

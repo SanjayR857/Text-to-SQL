@@ -498,11 +498,11 @@ Text-to-SQL/                               # Project root
 │   │   ├── exceptions/                    #   Platform & domain exception hierarchy
 │   │   │   ├── base.py                    #     Platform, auth & database exceptions
 │   │   │   └── chat.py                    #     Chat & conversation exceptions
-│   │   ├── logger/                        #   structlog configuration package
-│   │   │   └── setup.py                   #     Structured logging setup & handlers
+│   │   ├── observability/                 #   Logging & telemetry package
+│   │   │   ├── logging.py                 #     structlog & console/JSON handlers
+│   │   │   └── telemetry.py               #     OpenTelemetry traces & metrics
 │   │   ├── database.py                    #   SQLAlchemy Base, AsyncEngine & Session factory
-│   │   ├── events.py                      #   In-memory async event bus
-│   │   └── telemetry.py                   #   OpenTelemetry traces & metrics setup
+│   │   └── events.py                      #   In-memory async event bus
 │   │
 │   ├── auth/                              # Security, RBAC & Data Governance
 │   │   ├── access_context.py              #   Resolved access context & table permissions

@@ -18,7 +18,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 from sqlalchemy.ext.asyncio import AsyncEngine
 import structlog
 
-from core.logger import setup_logging
+from core.observability import setup_logging
 from core.database import (
     close_engine,
     get_async_engine,

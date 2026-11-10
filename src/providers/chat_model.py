@@ -12,7 +12,7 @@ from openai import AsyncAzureOpenAI
 import structlog
 
 from core.config import get_settings
-from core.telemetry import trace_span
+from core.observability import trace_span
 from chat.protocols import (
     ContextMessage,
     GenerationContext,
