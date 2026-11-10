@@ -5,42 +5,64 @@
 INSERT INTO "RoleAssignment" (email, "verticalCode", role, "assignedBy")
 VALUES
 -- Central Application (CA)
-('admin@enterprise.ai', 'CA', 'ADMIN', 'system'),
-('dev.engineer@enterprise.ai', 'CA', 'DEV', 'admin@enterprise.ai'),
-('dev.lead@enterprise.ai', 'CA', 'DEV', 'admin@enterprise.ai'),
+('sanjayr9586@gmail.com', 'CA', 'ADMIN', 'system'),
+('alex.chen.eng@gmail.com', 'CA', 'DEV', 'sanjayr9586@gmail.com'),
+('priya.sharma.lead@gmail.com', 'CA', 'DEV', 'sanjayr9586@gmail.com'),
 
 -- Chief AI Office (CHAIO)
-('chief.ai@enterprise.ai', 'CHAIO', 'CHIEF', 'admin@enterprise.ai'),
-('tech.lead1@enterprise.ai', 'CHAIO', 'LEAD', 'chief.ai@enterprise.ai'),
-('tech.lead2@enterprise.ai', 'CHAIO', 'LEAD', 'chief.ai@enterprise.ai'),
-('ai.lead@enterprise.ai', 'CHAIO', 'LEAD', 'chief.ai@enterprise.ai'),
-('ai.consultant@enterprise.ai', 'CHAIO', 'CON', 'chief.ai@enterprise.ai'),
+('elena.rostova.ai@gmail.com', 'CHAIO', 'CHIEF', 'sanjayr9586@gmail.com'),
+('sanjayr9586@gmail.com', 'CHAIO', 'LEAD', 'elena.rostova.ai@gmail.com'),
+('vikram.malhotra.lead@gmail.com', 'CHAIO', 'LEAD', 'elena.rostova.ai@gmail.com'),
+('marcus.vance.ai@gmail.com', 'CHAIO', 'LEAD', 'elena.rostova.ai@gmail.com'),
+('ananya.patel.ml@gmail.com', 'CHAIO', 'CON', 'sanjayr9586@gmail.com'),
+('daniel.kim.data@gmail.com', 'CHAIO', 'CON', 'vikram.malhotra.lead@gmail.com'),
 
 -- Chief Delivery Office (CHDLO)
-('director.eng@enterprise.ai', 'CHDLO', 'CHIEF', 'admin@enterprise.ai'),
-('partner.lead@enterprise.ai', 'CHDLO', 'EP', 'admin@enterprise.ai'),
-('manager.delivery@enterprise.ai', 'CHDLO', 'LEAD', 'partner.lead@enterprise.ai'),
-('delivery.lead@enterprise.ai', 'CHDLO', 'LEAD', 'manager.delivery@enterprise.ai'),
-('delivery.ep@enterprise.ai', 'CHDLO', 'EP', 'partner.lead@enterprise.ai'),
-('chief.delivery@enterprise.ai', 'CHDLO', 'CHIEF', 'admin@enterprise.ai'),
+('marcus.vance.cdo@gmail.com', 'CHDLO', 'CHIEF', 'sanjayr9586@gmail.com'),
+('jordan.hayes.ep@gmail.com', 'CHDLO', 'EP', 'marcus.vance.cdo@gmail.com'),
+('elizabeth.taylor.ep@gmail.com', 'CHDLO', 'EP', 'marcus.vance.cdo@gmail.com'),
+('david.k.delivery@gmail.com', 'CHDLO', 'LEAD', 'jordan.hayes.ep@gmail.com'),
+('emily.watson.lead@gmail.com', 'CHDLO', 'LEAD', 'david.k.delivery@gmail.com'),
+('carlos.mendez.lead@gmail.com', 'CHDLO', 'LEAD', 'david.k.delivery@gmail.com'),
 
 -- Chief Technology Office (CHTCO)
-('chief.tech@enterprise.ai', 'CHTCO', 'CHIEF', 'admin@enterprise.ai'),
-('manager.cloud@enterprise.ai', 'CHTCO', 'LEAD', 'chief.tech@enterprise.ai'),
-('cloud.architect@enterprise.ai', 'CHTCO', 'LEAD', 'manager.cloud@enterprise.ai'),
-('tech.es@enterprise.ai', 'CHTCO', 'ES', 'chief.tech@enterprise.ai'),
+('robert.chen.cto@gmail.com', 'CHTCO', 'CHIEF', 'sanjayr9586@gmail.com'),
+('kevin.t.cloudmgr@gmail.com', 'CHTCO', 'LEAD', 'robert.chen.cto@gmail.com'),
+('nathan.cross.arch@gmail.com', 'CHTCO', 'LEAD', 'kevin.t.cloudmgr@gmail.com'),
+('tanya.petrov.tech@gmail.com', 'CHTCO', 'ES', 'robert.chen.cto@gmail.com'),
 
 -- Chief Talent Office (CHTAO)
-('director.talent@enterprise.ai', 'CHTAO', 'CHIEF', 'admin@enterprise.ai'),
-('manager.talent@enterprise.ai', 'CHTAO', 'LEAD', 'director.talent@enterprise.ai'),
-('bench.coordinator@enterprise.ai', 'CHTAO', 'ES', 'manager.talent@enterprise.ai'),
+('laura.bennett.talent@gmail.com', 'CHTAO', 'CHIEF', 'sanjayr9586@gmail.com'),
+('brian.foster.talent@gmail.com', 'CHTAO', 'LEAD', 'laura.bennett.talent@gmail.com'),
+('chloe.zheng.bench@gmail.com', 'CHTAO', 'ES', 'brian.foster.talent@gmail.com'),
 
 -- Chief Risk and Compliance Office (CHRCO)
-('chief.risk@enterprise.ai', 'CHRCO', 'CHIEF', 'admin@enterprise.ai'),
-('compliance.lead@enterprise.ai', 'CHRCO', 'LEAD', 'chief.risk@enterprise.ai'),
+('arthur.pendelton.risk@gmail.com', 'CHRCO', 'CHIEF', 'sanjayr9586@gmail.com'),
+('hannah.abbott.compliance@gmail.com', 'CHRCO', 'LEAD', 'arthur.pendelton.risk@gmail.com'),
 
 -- Chief Finance Office (CHFIO)
-('chief.finance@enterprise.ai', 'CHFIO', 'CHIEF', 'admin@enterprise.ai')
+('richard.sterling.cfo@gmail.com', 'CHFIO', 'CHIEF', 'sanjayr9586@gmail.com'),
+('clara.oswald.finance@gmail.com', 'CHFIO', 'LEAD', 'richard.sterling.cfo@gmail.com'),
+
+-- Chief Demand Office (CHDMO)
+('victoria.sterling.demand@gmail.com', 'CHDMO', 'CHIEF', 'sanjayr9586@gmail.com'),
+('liam.o.connor.sales@gmail.com', 'CHDMO', 'LEAD', 'victoria.sterling.demand@gmail.com'),
+
+-- Chief Growth Office (CHGRO)
+('samira.khan.growth@gmail.com', 'CHGRO', 'CHIEF', 'sanjayr9586@gmail.com'),
+
+-- Chief Innovation Office (CHINO)
+('xavier.dupont.innov@gmail.com', 'CHINO', 'CHIEF', 'sanjayr9586@gmail.com'),
+('maya.lin.rnd@gmail.com', 'CHINO', 'LEAD', 'xavier.dupont.innov@gmail.com'),
+
+-- Chief Happiness and Culture Office (CHHCO)
+('olivia.williams.culture@gmail.com', 'CHHCO', 'CHIEF', 'sanjayr9586@gmail.com'),
+
+-- Chief Enablement Office (CHENO)
+('gordon.freeman.enable@gmail.com', 'CHENO', 'CHIEF', 'sanjayr9586@gmail.com'),
+
+-- Chief Transformation Office (CHTFO)
+('alicia.torres.transform@gmail.com', 'CHTFO', 'CHIEF', 'sanjayr9586@gmail.com')
 ON CONFLICT (email, "verticalCode") DO UPDATE
 SET role = EXCLUDED.role,
     "assignedBy" = EXCLUDED."assignedBy",

@@ -63,18 +63,48 @@ async def test_lead_user_context_endpoint(auth_test_app: FastAPI):
     ) as client:
         response = await client.get(
             "/api/v1/auth/me",
-            headers={DEV_USER_EMAIL_HEADER: "tech.lead1@enterprise.ai"},
+            headers={DEV_USER_EMAIL_HEADER: "vikram.malhotra.lead@gmail.com"},
         )
         assert response.status_code == 200
         data = response.json()
-        assert data["email"] == "tech.lead1@enterprise.ai"
-        assert data["user_id"] == "e85c0a56-ceb8-4a4f-b449-f481f4018343"
+        assert data["email"] == "vikram.malhotra.lead@gmail.com"
+        assert data["user_id"] == "a1b2c3d4-0001-4000-8000-000000000002"
         assert len(data["assignments"]) == 1
         assert data["assignments"][0]["role"] == "LEAD"
         assert data["assignments"][0]["vertical_code"] == "CHAIO"
         assert data["assignments"][0]["vertical_name"] == "Chief AI Office"
         assert data["access_scope"]["vertical_codes"] == ["CHAIO"]
         assert "proj_alpha_ai_001" in data["access_scope"]["project_ids"]
+        assert "proj_health_omnichannel_004" in data["access_scope"]["project_ids"]
+
+
+@pytest.mark.asyncio
+async def test_sanjay_lead_admin_user_context_endpoint(auth_test_app: FastAPI):
+    """
+    Test Lead + Admin user (Sanjay):
+    - User UUID resolved from PostgreSQL users table.
+    - Multi-role assignments: ADMIN in CA and LEAD in CHAIO.
+    - Access scope spans CA and CHAIO, and all lead projects.
+    """
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app=auth_test_app),
+        base_url="http://testserver",
+    ) as client:
+        response = await client.get(
+            "/api/v1/auth/me",
+            headers={DEV_USER_EMAIL_HEADER: "sanjayr9586@gmail.com"},
+        )
+        assert response.status_code == 200
+        data = response.json()
+        assert data["email"] == "sanjayr9586@gmail.com"
+        assert data["user_id"] == "e85c0a56-ceb8-4a4f-b449-f481f4018343"
+        assert len(data["assignments"]) == 2
+        roles = {a["role"] for a in data["assignments"]}
+        assert roles == {"ADMIN", "LEAD"}
+        assert set(data["access_scope"]["vertical_codes"]) == {"CA", "CHAIO"}
+        assert "proj_alpha_ai_001" in data["access_scope"]["project_ids"]
+        assert "proj_fintech_copilot_002" in data["access_scope"]["project_ids"]
+        assert "proj_supply_chain_005" in data["access_scope"]["project_ids"]
 
 
 @pytest.mark.asyncio
@@ -91,11 +121,11 @@ async def test_chief_user_context_endpoint(auth_test_app: FastAPI):
     ) as client:
         response = await client.get(
             "/api/v1/auth/me",
-            headers={DEV_USER_EMAIL_HEADER: "chief.ai@enterprise.ai"},
+            headers={DEV_USER_EMAIL_HEADER: "elena.rostova.ai@gmail.com"},
         )
         assert response.status_code == 200
         data = response.json()
-        assert data["email"] == "chief.ai@enterprise.ai"
+        assert data["email"] == "elena.rostova.ai@gmail.com"
         assert data["user_id"] == "1f833c6d-19e3-478d-b0aa-0797beffeb44"
         assert len(data["assignments"]) == 1
         assert data["assignments"][0]["role"] == "CHIEF"
@@ -113,7 +143,7 @@ async def test_unknown_user_returns_404(auth_test_app: FastAPI):
     ) as client:
         response = await client.get(
             "/api/v1/auth/me",
-            headers={DEV_USER_EMAIL_HEADER: "nonexistent.user@enterprise.ai"},
+            headers={DEV_USER_EMAIL_HEADER: "nonexistent.user@gmail.com"},
         )
         assert response.status_code == 404
         assert "does not exist" in response.json()["detail"]
@@ -128,7 +158,7 @@ async def test_user_without_assignments_returns_403(auth_test_app: FastAPI):
     ) as client:
         response = await client.get(
             "/api/v1/auth/me",
-            headers={DEV_USER_EMAIL_HEADER: "dev.user@enterprise.ai"},
+            headers={DEV_USER_EMAIL_HEADER: "dev.unassigned@gmail.com"},
         )
         assert response.status_code == 403
         assert "no active vertical role assignments" in response.json()["detail"]

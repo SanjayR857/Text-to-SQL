@@ -13,4 +13,5 @@ VALUES
 ('CHGRO', 'Chief Growth Office', 'IndividualModule'),
 ('CHHCO', 'Chief Happiness and Culture Office', 'IndividualModule'),
 ('CHENO', 'Chief Enablement Office', 'IndividualModule'),
-('CHINO', 'Chief Innovation Office', 'IndividualModule');
+('CHINO', 'Chief Innovation Office', 'IndividualModule')
+ON CONFLICT (code) DO NOTHING;

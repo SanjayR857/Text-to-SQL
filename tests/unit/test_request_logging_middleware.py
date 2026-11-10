@@ -29,10 +29,10 @@ def logging_app() -> FastAPI:
     @app.get("/api/v1/authenticated")
     async def auth_endpoint(request: Request):
         # Simulate authenticated state
-        request.state.identity = RequestIdentity(email="lead@enterprise.ai", auth_method="dev_header")
+        request.state.identity = RequestIdentity(email="sanjayr9586@gmail.com", auth_method="dev_header")
         request.state.user_context = UserContext(
             user_id=UUID("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"),
-            email="lead@enterprise.ai",
+            email="sanjayr9586@gmail.com",
         )
         return {"status": "authenticated"}
 

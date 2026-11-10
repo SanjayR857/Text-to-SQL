@@ -48,17 +48,17 @@ async def test_lead_user_context_resolution(service: UserContextService, mock_re
     ]
     mock_repo.get_assigned_lead_project_ids.return_value = ["proj_alpha_ai_001"]
 
-    ctx = await service.resolve_user_context("Lead.User@Enterprise.AI")
+    ctx = await service.resolve_user_context("Lead.User@Gmail.Com")
 
     assert ctx.user_id == user_uuid
-    assert ctx.email == "lead.user@enterprise.ai"
+    assert ctx.email == "lead.user@gmail.com"
     assert len(ctx.assignments) == 1
     assert ctx.assignments[0].role == Role.LEAD
     assert ctx.assignments[0].vertical_code == "CHAIO"
     assert ctx.assignments[0].vertical_area == Area.IndividualModule
     assert ctx.access_scope.vertical_codes == ["CHAIO"]
     assert ctx.access_scope.project_ids == ["proj_alpha_ai_001"]
-    mock_repo.get_assigned_lead_project_ids.assert_awaited_once_with("lead.user@enterprise.ai")
+    mock_repo.get_assigned_lead_project_ids.assert_awaited_once_with("lead.user@gmail.com")
 
 
 @pytest.mark.asyncio
@@ -75,10 +75,10 @@ async def test_chief_user_context_resolution(service: UserContextService, mock_r
         }
     ]
 
-    ctx = await service.resolve_user_context("chief@enterprise.ai")
+    ctx = await service.resolve_user_context("chief@gmail.com")
 
     assert ctx.user_id == user_uuid
-    assert ctx.email == "chief@enterprise.ai"
+    assert ctx.email == "chief@gmail.com"
     assert len(ctx.assignments) == 1
     assert ctx.assignments[0].role == Role.CHIEF
     assert ctx.access_scope.vertical_codes == ["CHAIO"]
@@ -108,13 +108,13 @@ async def test_multi_role_user_context_resolution(service: UserContextService, m
     ]
     mock_repo.get_assigned_lead_project_ids.return_value = ["proj_101", "proj_102"]
 
-    ctx = await service.resolve_user_context("leader@enterprise.ai")
+    ctx = await service.resolve_user_context("leader@gmail.com")
 
     assert ctx.user_id == user_uuid
     assert len(ctx.assignments) == 2
     assert ctx.access_scope.vertical_codes == ["CHDLO", "CHTAO"]
     assert ctx.access_scope.project_ids == ["proj_101", "proj_102"]
-    mock_repo.get_assigned_lead_project_ids.assert_awaited_once_with("leader@enterprise.ai")
+    mock_repo.get_assigned_lead_project_ids.assert_awaited_once_with("leader@gmail.com")
 
 
 @pytest.mark.asyncio
@@ -123,7 +123,7 @@ async def test_unknown_user_raises_404(service: UserContextService, mock_repo: A
     mock_repo.get_user_id_by_email.return_value = None
 
     with pytest.raises(UserNotFoundError) as exc_info:
-        await service.resolve_user_context("unknown@enterprise.ai")
+        await service.resolve_user_context("unknown@gmail.com")
     assert "does not exist" in str(exc_info.value)
 
 
@@ -134,7 +134,7 @@ async def test_no_active_assignments_raises_403(service: UserContextService, moc
     mock_repo.get_active_role_assignments.return_value = []
 
     with pytest.raises(NoActiveAssignmentsError) as exc_info:
-        await service.resolve_user_context("inactive@enterprise.ai")
+        await service.resolve_user_context("inactive@gmail.com")
     assert "no active vertical role assignments" in str(exc_info.value)
 
 
@@ -144,7 +144,7 @@ async def test_database_error_propagates(service: UserContextService, mock_repo:
     mock_repo.get_user_id_by_email.side_effect = DatabaseUnavailableError("DB connection failed")
 
     with pytest.raises(DatabaseUnavailableError):
-        await service.resolve_user_context("user@enterprise.ai")
+        await service.resolve_user_context("user@gmail.com")
 
 
 @pytest.mark.asyncio

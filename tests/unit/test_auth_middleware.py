@@ -124,13 +124,13 @@ async def test_auth_success_with_dev_header(dev_settings: Settings):
     ) as client:
         response = await client.get(
             "/api/v1/protected",
-            headers={DEV_USER_EMAIL_HEADER: "  Tech.Lead1@Enterprise.AI  "},
+            headers={DEV_USER_EMAIL_HEADER: "  SanjayR9586@Gmail.Com  "},
         )
         assert response.status_code == status.HTTP_200_OK
         data = response.json()
-        assert data["email"] == "tech.lead1@enterprise.ai"
+        assert data["email"] == "sanjayr9586@gmail.com"
         assert data["auth_method"] == "dev_header"
-        assert data["state_user_email"] == "tech.lead1@enterprise.ai"
+        assert data["state_user_email"] == "sanjayr9586@gmail.com"
 
 
 @pytest.mark.asyncio
@@ -143,11 +143,11 @@ async def test_auth_success_via_fastapi_dependency(dev_settings: Settings):
     ) as client:
         response = await client.get(
             "/api/v1/identity-via-dep",
-            headers={DEV_USER_EMAIL_HEADER: "chief.ai@enterprise.ai"},
+            headers={DEV_USER_EMAIL_HEADER: "elena.rostova.ai@gmail.com"},
         )
         assert response.status_code == status.HTTP_200_OK
         data = response.json()
-        assert data["email"] == "chief.ai@enterprise.ai"
+        assert data["email"] == "elena.rostova.ai@gmail.com"
         assert data["auth_method"] == "dev_header"
 
 
@@ -176,7 +176,7 @@ async def test_auth_disabled_returns_403(disabled_dev_settings: Settings):
     ) as client:
         response = await client.get(
             "/api/v1/protected",
-            headers={DEV_USER_EMAIL_HEADER: "lead@enterprise.ai"},
+            headers={DEV_USER_EMAIL_HEADER: "sanjayr9586@gmail.com"},
         )
         assert response.status_code == status.HTTP_403_FORBIDDEN
         assert response.json() == {
