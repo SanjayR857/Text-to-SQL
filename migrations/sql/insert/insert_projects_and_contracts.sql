@@ -373,7 +373,13 @@ INSERT INTO "Milestone" (
 (
     'mile_013_sc_route_agent', 'proj_supply_chain_005', 'Predictive Delay Reasoning Agent & Freight Rerouting', 75000.00, '2026-11-30', 'Pending', 'sanjayr9586@gmail.com', 'sanjayr9586@gmail.com'
 )
-ON CONFLICT (id) DO NOTHING;
+ON CONFLICT (id) DO UPDATE
+SET "projectId" = EXCLUDED."projectId",
+    name = EXCLUDED.name,
+    amount = EXCLUDED.amount,
+    "dueDate" = EXCLUDED."dueDate",
+    status = EXCLUDED.status,
+    "updatedAt" = CURRENT_TIMESTAMP;
 
 -- 5. ContractAmendment (Legitimate change requests and scope expansions)
 INSERT INTO "ContractAmendment" (
@@ -399,7 +405,13 @@ INSERT INTO "ContractAmendment" (
     'Integration with ClinicalTrials.gov and PubMed REST endpoints for dynamic oncological trial matching.',
     'sanjayr9586@gmail.com', 'sanjayr9586@gmail.com'
 )
-ON CONFLICT (id) DO NOTHING;
+ON CONFLICT (id) DO UPDATE
+SET "projectId" = EXCLUDED."projectId",
+    type = EXCLUDED.type,
+    amount = EXCLUDED.amount,
+    "effectiveDate" = EXCLUDED."effectiveDate",
+    description = EXCLUDED.description,
+    "updatedAt" = CURRENT_TIMESTAMP;
 
 -- 6. Contract (Formal master agreements and statements of work)
 INSERT INTO "Contract" (
@@ -430,4 +442,11 @@ INSERT INTO "Contract" (
     'SOW-LOG-01 - Autonomous Supply Chain Inventory Copilot',
     'Active', 'StatementOfWork', '2026-05-15', '2027-01-31', 280000.00
 )
-ON CONFLICT (id) DO NOTHING;
+ON CONFLICT (id) DO UPDATE
+SET "projectId" = EXCLUDED."projectId",
+    "contractName" = EXCLUDED."contractName",
+    status = EXCLUDED.status,
+    "contractType" = EXCLUDED."contractType",
+    "startDate" = EXCLUDED."startDate",
+    "endDate" = EXCLUDED."endDate",
+    value = EXCLUDED.value;
