@@ -8,7 +8,7 @@ The settings object is a cached singleton via @lru_cache.
 Field naming convention:
   - Field names are lowercase (Pythonic, PEP 8).
   - pydantic-settings maps them automatically to their UPPERCASE env var equivalents
-    because case_sensitive=False.  Example: database_url ← DATABASE_URL in .env
+    because case_sensitive=False. Example: database_url -> DATABASE_URL in .env
 """
 from functools import lru_cache
 from typing import Literal, Self
@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
-        case_sensitive=False,   # database_url ← DATABASE_URL ✅
+        case_sensitive=False,
         extra="ignore",
     )
 

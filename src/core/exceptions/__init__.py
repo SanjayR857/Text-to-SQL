@@ -1,8 +1,7 @@
 """
-Domain and application exception hierarchy for the platform.
-Re-exported from centralized exceptions module.
+Centralized exception package inside core for all domain, application, and platform errors.
 """
-from exceptions.core import (
+from core.exceptions.base import (
     AuthenticationError,
     AuthorizationError,
     ColumnAccessDeniedError,
@@ -17,8 +16,20 @@ from exceptions.core import (
     TableAccessDeniedError,
     UserNotFoundError,
 )
+from core.exceptions.chat import (
+    ChatDomainException,
+    ConversationDomainException,
+    ConversationNotFoundError,
+    DuplicateMessageError,
+    GenerationConflictError,
+    GenerationFencingError,
+    InvalidFeedbackError,
+    MessageNotFoundError,
+    StaleSummaryError,
+)
 
 __all__ = [
+    # Core & Auth
     "PlatformException",
     "AuthenticationError",
     "MissingIdentityError",
@@ -32,4 +43,14 @@ __all__ = [
     "ColumnAccessDeniedError",
     "JoinAccessDeniedError",
     "SqlSecurityError",
+    # Chat & Conversation
+    "ConversationDomainException",
+    "ChatDomainException",
+    "ConversationNotFoundError",
+    "MessageNotFoundError",
+    "GenerationConflictError",
+    "GenerationFencingError",
+    "DuplicateMessageError",
+    "InvalidFeedbackError",
+    "StaleSummaryError",
 ]

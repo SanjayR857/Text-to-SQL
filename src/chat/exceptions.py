@@ -1,8 +1,8 @@
 """
 Domain exceptions for the Conversation Management Module.
-Re-exported from centralized exceptions module.
+Re-exported from core.exceptions.chat.
 """
-from exceptions.chat import (
+from core.exceptions.chat import (
     ChatDomainException,
     ConversationDomainException,
     ConversationNotFoundError,

@@ -374,7 +374,7 @@ docker compose exec api alembic upgrade head
 
 ### Environment Variables
 
-All settings are defined in `src/core/config.py` and loaded from environment variables or `.env`.
+All settings are defined in `src/core/config/settings.py` and loaded from environment variables or `.env`.
 
 | Variable | Default | Description |
 |---|---|---|
@@ -480,10 +480,6 @@ Text-to-SQL/                               # Project root
 │   │       ├── feedback.py                #   Message feedback & rating endpoints
 │   │       └── health.py                  #   Liveness & readiness probes
 │   │
-│   ├── exceptions/                        # Centralized Platform & Domain Exceptions
-│   │   ├── chat.py                        #   Conversation & streaming domain exceptions
-│   │   └── core.py                        #   Platform, auth, RBAC & database exceptions
-│   │
 │   ├── models/                            # Centralized SQLAlchemy 2.0 Database Models
 │   │   ├── chat.py                        #   Conversation, Message, Feedback, Summary models
 │   │   ├── text_to_sql.py                 #   SchemaEmbeddingModel, EntityEmbeddingModel
@@ -496,12 +492,16 @@ Text-to-SQL/                               # Project root
 │   │   └── message.py                     #   Message & history schemas
 │   │
 │   ├── core/                              # Cross-cutting platform foundation
-│   │   ├── config.py                      #   pydantic-settings environment configuration
+│   │   ├── config/                        #   pydantic-settings configuration package
+│   │   │   └── settings.py                #     Application Settings & get_settings()
+│   │   ├── exceptions/                    #   Platform & domain exception hierarchy
+│   │   │   ├── base.py                    #     Platform, auth & database exceptions
+│   │   │   └── chat.py                    #     Chat & conversation exceptions
+│   │   ├── logger/                        #   structlog configuration package
+│   │   │   └── setup.py                   #     Structured logging setup & handlers
 │   │   ├── constants.py                   #   Application constants & defaults
 │   │   ├── database.py                    #   SQLAlchemy Base, AsyncEngine & Session factory
 │   │   ├── events.py                      #   In-memory async event bus
-│   │   ├── exceptions.py                  #   Domain & application exception hierarchy
-│   │   ├── logging.py                     #   structlog configuration & processors
 │   │   └── telemetry.py                   #   OpenTelemetry traces & metrics setup
 │   │
 │   ├── auth/                              # Security, RBAC & Data Governance
