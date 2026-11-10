@@ -29,7 +29,8 @@ from enterprise_ai_platform.infrastructure.database.session import get_session_f
 
 logger = structlog.get_logger(__name__)
 
-# Development identity header name
+# Identity header names
+AZURE_PRINCIPAL_NAME_HEADER = "x-ms-client-principal-name"
 DEV_USER_EMAIL_HEADER = "x-dev-user-email"
 
 # Public path prefixes exempt from authentication
@@ -82,8 +83,31 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
         if self._is_public_path(request.url.path):
             return await call_next(request)
 
-        # 2. Extract development identity header
-        raw_email = request.headers.get(DEV_USER_EMAIL_HEADER)
+        # 2. Extract identity headers
+        azure_email = request.headers.get(AZURE_PRINCIPAL_NAME_HEADER)
+        dev_email = request.headers.get(DEV_USER_EMAIL_HEADER)
+
+        raw_email: str | None = None
+        auth_method: str = "unknown"
+
+        if azure_email is not None:
+            raw_email = azure_email
+            auth_method = "azure_easy_auth"
+        elif dev_email is not None:
+            # Reject dev header if dev auth is disabled or running in production
+            if not self._settings.allow_dev_auth or self._settings.is_production:
+                logger.warning(
+                    "auth_middleware.dev_auth_disabled",
+                    path=request.url.path,
+                    allow_dev_auth=self._settings.allow_dev_auth,
+                    environment=self._settings.environment,
+                )
+                return JSONResponse(
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    content={"detail": "Development authentication is disabled."},
+                )
+            raw_email = dev_email
+            auth_method = "dev_header"
 
         # 3. Missing identity: fail closed with 401
         if raw_email is None:
@@ -97,20 +121,7 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
                 content={"detail": "Authentication required: missing identity header."},
             )
 
-        # 4. Check if development authentication is permitted
-        if not self._settings.allow_dev_auth or self._settings.is_production:
-            logger.warning(
-                "auth_middleware.dev_auth_disabled",
-                path=request.url.path,
-                allow_dev_auth=self._settings.allow_dev_auth,
-                environment=self._settings.environment,
-            )
-            return JSONResponse(
-                status_code=status.HTTP_403_FORBIDDEN,
-                content={"detail": "Development authentication is disabled."},
-            )
-
-        # 5. Validate and normalize email
+        # 4. Validate and normalize email
         clean_email = raw_email.strip().lower()
         if not clean_email or not EMAIL_REGEX.match(clean_email):
             logger.warning(
@@ -123,15 +134,15 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
                 content={"detail": "Invalid identity email format."},
             )
 
-        # 6. Construct RequestIdentity and attach to request.state
+        # 5. Construct RequestIdentity and attach to request.state
         identity = RequestIdentity(
             email=clean_email,
-            auth_method="dev_header",
+            auth_method=auth_method,
         )
         request.state.identity = identity
         request.state.user_email = clean_email
 
-        # 7. Resolve UserContext within an isolated, short-lived async database session
+        # 6. Resolve UserContext within an isolated, short-lived async database session
         session_factory = get_session_factory()
         try:
             async with session_factory() as session:
@@ -139,8 +150,9 @@ class AuthenticationMiddleware(BaseHTTPMiddleware):
                 service = UserContextService(repo)
                 user_context = await service.resolve_user_context(clean_email)
 
-            # Attach resolved UserContext to request state
+            # Attach resolved UserContext and user_id to request state
             request.state.user_context = user_context
+            request.state.user_id = user_context.user_id
 
         except UserNotFoundError as exc:
             return JSONResponse(

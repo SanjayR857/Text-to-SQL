@@ -51,3 +51,7 @@ frontend/out/
 *.log
 *.sqlite3
 *.db
+
+# Documentation files & transcripts
+docs/*
+!docs/.gitkeep

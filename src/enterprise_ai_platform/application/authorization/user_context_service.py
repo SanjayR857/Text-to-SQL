@@ -10,7 +10,6 @@ import structlog
 
 from enterprise_ai_platform.core.exceptions import (
     InvalidIdentityError,
-    NoActiveAssignmentsError,
     UserNotFoundError,
 )
 from enterprise_ai_platform.domain.identity.role import Area, Role
@@ -84,26 +83,22 @@ class UserContextService:
 
         # 2. Retrieve active role assignments with active verticals
         db_assignments = await self._repo.get_active_role_assignments(clean_email)
-        if not db_assignments:
-            logger.warning("user_context_service.no_active_assignments", email=clean_email)
-            raise NoActiveAssignmentsError(
-                f"User '{clean_email}' has no active vertical role assignments."
-            )
 
+        # 3. Construct assignment contexts (empty list if no elevated roles provisioned)
         assignments: list[RoleAssignmentContext] = [
             RoleAssignmentContext(
                 role=Role(raw["role"]),
-                vertical_code=raw["vertical_code"],
+                vertical_code=raw["vertical_code"].strip().upper(),
                 vertical_name=raw["vertical_name"],
                 vertical_area=Area(raw["vertical_area"]),
             )
             for raw in db_assignments
         ]
 
-        # 3. Derive vertical codes
+        # 4. Derive uppercase vertical codes
         vertical_codes = sorted({a.vertical_code for a in assignments})
 
-        # 4. Derive project scope: only query ProjectName if user holds at least one LEAD role
+        # 5. Derive project scope: only query ProjectName if user holds at least one LEAD role
         has_lead_role = any(a.role == Role.LEAD for a in assignments)
         project_ids: list[str] = []
         if has_lead_role:
@@ -114,6 +109,7 @@ class UserContextService:
             "user_context_service.resolved",
             user_id=str(user_id),
             email=clean_email,
+            is_unassigned=len(assignments) == 0,
             roles=[a.role.value for a in assignments],
             verticals=vertical_codes,
             lead_projects_count=len(project_ids),

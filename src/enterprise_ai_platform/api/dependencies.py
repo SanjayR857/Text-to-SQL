@@ -6,6 +6,7 @@ from uuid import UUID
 from fastapi import Depends, Header, HTTPException, Request, status
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
+from enterprise_ai_platform.domain.identity.role import Role
 from enterprise_ai_platform.domain.identity.user import RequestIdentity, UserContext
 
 from enterprise_ai_platform.application.conversations.context_service import ContextService
@@ -92,14 +93,25 @@ def get_current_user_context(request: Request) -> UserContext:
 
 
 async def get_current_user_id(
+    request: Request,
     x_user_id: str | None = Header(default=None, alias="X-User-ID"),
 ) -> UUID:
     """
     Extract authenticated user UUID from request context.
 
-    In production/staging: Must receive an authenticated principal identity.
-    In development mode: Falls back to DEV_USER_ID if X-User-ID is omitted.
+    Prioritizes the authenticated user_id set by AuthenticationMiddleware.
+    Falls back to X-User-ID or DEV_USER_ID for test suites bypassing middleware.
     """
+    # 1. Prefer authenticated principal verified by AuthenticationMiddleware
+    user_id: UUID | None = getattr(request.state, "user_id", None)
+    if user_id is not None:
+        return user_id
+
+    context: UserContext | None = getattr(request.state, "user_context", None)
+    if context is not None:
+        return context.user_id
+
+    # 2. Test harness fallback: explicit header
     if x_user_id is not None:
         try:
             return UUID(x_user_id)
@@ -109,14 +121,70 @@ async def get_current_user_id(
                 detail="Invalid X-User-ID format; must be a valid UUID.",
             ) from err
 
+    # 3. Development environment fallback
     settings = get_settings()
     if settings.is_development:
         return DEV_USER_ID
 
     raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Authentication required: X-User-ID header missing.",
+        detail="Authentication required: user identity not established.",
     )
+
+
+def require_ca_admin(
+    context: UserContext = Depends(get_current_user_context),
+) -> UserContext:
+    """
+    Enforce Central Application Administrator access.
+
+    Raises:
+        HTTPException: 403 Forbidden if user is not a CA Admin.
+    """
+    if not context.is_ca_admin:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Central Application Administrator access required.",
+        )
+    return context
+
+
+def require_vertical_access(
+    required_role: Role | None = None,
+):
+    """
+    Dependency factory to enforce vertical-scoped access.
+
+    Args:
+        required_role: Specific role required within the vertical (e.g., Role.CHIEF).
+                       If None, any active assignment in the vertical is accepted.
+
+    Returns:
+        FastAPI dependency callable that checks access against path param `vertical_code`.
+    """
+    def dependency(
+        vertical_code: str,
+        context: UserContext = Depends(get_current_user_context),
+    ) -> UserContext:
+        # Central Application Admins have global access
+        if context.is_ca_admin:
+            return context
+
+        if required_role is not None:
+            if not context.has_role_in_vertical(required_role, vertical_code):
+                raise HTTPException(
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    detail=f"Role '{required_role.value}' required in vertical '{vertical_code.upper()}'.",
+                )
+        else:
+            if not context.has_vertical(vertical_code):
+                raise HTTPException(
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    detail=f"Access denied for vertical '{vertical_code.upper()}'.",
+                )
+        return context
+
+    return dependency
 
 
 def get_conversation_repo(

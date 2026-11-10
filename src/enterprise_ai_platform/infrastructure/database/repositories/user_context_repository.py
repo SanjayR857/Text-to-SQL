@@ -43,9 +43,10 @@ class UserContextRepository:
         Raises:
             DatabaseUnavailableError: If a database error occurs.
         """
-        stmt = text('SELECT id FROM users WHERE LOWER(email) = :email LIMIT 1')
+        normalized_email = email.strip().lower()
+        stmt = text("SELECT id FROM users WHERE LOWER(email) = :email LIMIT 1")
         try:
-            result = await self._session.execute(stmt, {"email": email.lower()})
+            result = await self._session.execute(stmt, {"email": normalized_email})
             row = result.fetchone()
             if row and row[0]:
                 val = row[0]
@@ -54,7 +55,7 @@ class UserContextRepository:
         except SQLAlchemyError as err:
             logger.error(
                 "user_context_repo.get_user_id_failed",
-                email=email,
+                email=normalized_email,
                 error=str(err),
             )
             raise DatabaseUnavailableError("Failed to query user identity from database.") from err
@@ -73,26 +74,29 @@ class UserContextRepository:
         Raises:
             DatabaseUnavailableError: If a database error occurs.
         """
-        stmt = text('''
+        normalized_email = email.strip().lower()
+        stmt = text("""
             SELECT r.role, v.code AS vertical_code, v.name AS vertical_name, v.area AS vertical_area
             FROM "RoleAssignment" r
             JOIN "Vertical" v ON r."verticalCode" = v.code
             WHERE LOWER(r.email) = :email AND v."isActive" = TRUE
-        ''')
+        """)
         try:
-            result = await self._session.execute(stmt, {"email": email.lower()})
+            result = await self._session.execute(stmt, {"email": normalized_email})
             return [dict(r._mapping) for r in result.fetchall()]
         except SQLAlchemyError as err:
             logger.error(
                 "user_context_repo.get_role_assignments_failed",
-                email=email,
+                email=normalized_email,
                 error=str(err),
             )
             raise DatabaseUnavailableError("Failed to query role assignments from database.") from err
 
     async def get_assigned_lead_project_ids(self, email: str) -> list[str]:
         """
-        Retrieve active project IDs where the given email is listed in teamLeadMails.
+        Retrieve active project IDs where the given email is listed as a team lead.
+
+        Supports both the array column (teamLeadMails) and the scalar column (teamLeadMail).
 
         Args:
             email: Canonical lowercase user email.
@@ -103,18 +107,20 @@ class UserContextRepository:
         Raises:
             DatabaseUnavailableError: If a database error occurs.
         """
-        stmt = text('''
+        normalized_email = email.strip().lower()
+        stmt = text("""
             SELECT id
             FROM "ProjectName"
-            WHERE status = 'Active' AND :email = ANY("teamLeadMails")
-        ''')
+            WHERE status = 'Active'
+              AND (:email = ANY("teamLeadMails") OR LOWER("teamLeadMail") = :email)
+        """)
         try:
-            result = await self._session.execute(stmt, {"email": email.lower()})
+            result = await self._session.execute(stmt, {"email": normalized_email})
             return [str(row[0]) for row in result.fetchall()]
         except SQLAlchemyError as err:
             logger.error(
                 "user_context_repo.get_lead_projects_failed",
-                email=email,
+                email=normalized_email,
                 error=str(err),
             )
             raise DatabaseUnavailableError("Failed to query lead projects from database.") from err

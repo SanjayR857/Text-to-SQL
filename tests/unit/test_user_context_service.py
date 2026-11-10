@@ -128,14 +128,21 @@ async def test_unknown_user_raises_404(service: UserContextService, mock_repo: A
 
 
 @pytest.mark.asyncio
-async def test_no_active_assignments_raises_403(service: UserContextService, mock_repo: AsyncMock):
-    """Test user with no active assignments raises NoActiveAssignmentsError."""
-    mock_repo.get_user_id_by_email.return_value = UUID("44444444-4444-4444-4444-444444444444")
+async def test_no_active_assignments_resolves_unassigned_employee(
+    service: UserContextService, mock_repo: AsyncMock
+):
+    """Test user with no active assignments resolves safely as an unassigned employee."""
+    user_id = UUID("44444444-4444-4444-4444-444444444444")
+    mock_repo.get_user_id_by_email.return_value = user_id
     mock_repo.get_active_role_assignments.return_value = []
 
-    with pytest.raises(NoActiveAssignmentsError) as exc_info:
-        await service.resolve_user_context("inactive@gmail.com")
-    assert "no active vertical role assignments" in str(exc_info.value)
+    context = await service.resolve_user_context("inactive@gmail.com")
+
+    assert context.user_id == user_id
+    assert context.is_unassigned_employee is True
+    assert context.assignments == []
+    assert context.access_scope.vertical_codes == []
+    assert context.access_scope.project_ids == []
 
 
 @pytest.mark.asyncio
