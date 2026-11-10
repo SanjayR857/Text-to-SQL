@@ -1,0 +1,53 @@
+# Environment variables & secrets
+.env
+.env.local
+.env.*.local
+*.env
+
+# Python byte-code & caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Distribution & packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# IDE & Editor configs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Operating System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Frontend & Node dependencies
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.next/
+frontend/out/
+
+# Logs & scratch databases
+*.log
+*.sqlite3
+*.db
