@@ -480,6 +480,10 @@ Text-to-SQL/                               # Project root
 │   │       ├── feedback.py                #   Message feedback & rating endpoints
 │   │       └── health.py                  #   Liveness & readiness probes
 │   │
+│   ├── exceptions/                        # Centralized Platform & Domain Exceptions
+│   │   ├── chat.py                        #   Conversation & streaming domain exceptions
+│   │   └── core.py                        #   Platform, auth, RBAC & database exceptions
+│   │
 │   ├── models/                            # Centralized SQLAlchemy 2.0 Database Models
 │   │   ├── chat.py                        #   Conversation, Message, Feedback, Summary models
 │   │   ├── text_to_sql.py                 #   SchemaEmbeddingModel, EntityEmbeddingModel

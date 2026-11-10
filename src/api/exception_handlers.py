@@ -6,7 +6,7 @@ Maps domain exceptions to standard HTTP error responses.
 from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 
-from chat.exceptions import (
+from exceptions import (
     ChatDomainException,
     ConversationNotFoundError,
     DuplicateMessageError,
