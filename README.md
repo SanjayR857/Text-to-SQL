@@ -492,14 +492,14 @@ Text-to-SQL/                               # Project root
 │   │   └── message.py                     #   Message & history schemas
 │   │
 │   ├── core/                              # Cross-cutting platform foundation
-│   │   ├── config/                        #   pydantic-settings configuration package
+│   │   ├── config/                        #   pydantic-settings & constants package
+│   │   │   ├── constants.py               #     Platform-wide constant definitions
 │   │   │   └── settings.py                #     Application Settings & get_settings()
 │   │   ├── exceptions/                    #   Platform & domain exception hierarchy
 │   │   │   ├── base.py                    #     Platform, auth & database exceptions
 │   │   │   └── chat.py                    #     Chat & conversation exceptions
 │   │   ├── logger/                        #   structlog configuration package
 │   │   │   └── setup.py                   #     Structured logging setup & handlers
-│   │   ├── constants.py                   #   Application constants & defaults
 │   │   ├── database.py                    #   SQLAlchemy Base, AsyncEngine & Session factory
 │   │   ├── events.py                      #   In-memory async event bus
 │   │   └── telemetry.py                   #   OpenTelemetry traces & metrics setup

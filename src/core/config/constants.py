@@ -1,3 +1,3 @@
-﻿"""
+"""
 Platform-wide constant definitions.
 """
