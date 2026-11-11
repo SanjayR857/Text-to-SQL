@@ -1,4 +1,4 @@
-﻿services:
+services:
   postgres:
     image: pgvector/pgvector:0.8.7-pg18-trixie
     container_name: postgres-vector
@@ -9,7 +9,7 @@
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/docker
+      - pgdata:/var/lib/postgresql/data
     restart: unless-stopped
 
 volumes:

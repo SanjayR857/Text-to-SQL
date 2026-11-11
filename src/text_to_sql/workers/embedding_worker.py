@@ -166,6 +166,31 @@ class SchemaEmbeddingWorker:
         )
         return upserted_count
 
+    async def sync_table(
+        self,
+        table_name: str,
+        database_id: str = "default",
+        schema_name: str = "public",
+    ) -> int:
+        """
+        Synchronize schema embeddings for a single specific table.
+
+        Args:
+            table_name: Target table name to introspect and embed.
+            database_id: Database identifier.
+            schema_name: PostgreSQL schema name.
+
+        Returns:
+            Number of newly embedded or modified documents for this table.
+        """
+        event = SchemaChangeEvent(
+            database_id=database_id,
+            schema_name=schema_name,
+            change_type=SchemaChangeType.ALTERED,
+            affected_tables=[table_name],
+        )
+        return await self.handle_schema_change(event)
+
     async def sync_all_schemas(
         self,
         database_id: str = "default",

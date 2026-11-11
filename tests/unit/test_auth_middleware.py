@@ -1,6 +1,8 @@
 """
 Unit and integration tests for AuthenticationMiddleware and development identity resolution.
 """
+from unittest.mock import AsyncMock, patch
+from uuid import uuid4
 from fastapi import Depends, FastAPI, Request, status
 import httpx
 from pydantic import ValidationError
@@ -12,7 +14,29 @@ from api.middleware.authentication import (
     AuthenticationMiddleware,
 )
 from core.config import Settings
-from rbac.identity import RequestIdentity
+from rbac.identity import (
+    Area,
+    RequestIdentity,
+    Role,
+    RoleAssignmentContext,
+    UserContext,
+)
+
+
+@pytest.fixture
+def sample_user_context() -> UserContext:
+    return UserContext(
+        user_id=uuid4(),
+        email="sanjayr9586@gmail.com",
+        assignments=[
+            RoleAssignmentContext(
+                role=Role.ADMIN,
+                vertical_code="CHAIO",
+                vertical_name="Central AI Office",
+                vertical_area=Area.CentralApplication,
+            )
+        ],
+    )
 
 
 def create_test_app(settings: Settings) -> FastAPI:
@@ -115,40 +139,48 @@ def disabled_dev_settings() -> Settings:
 
 
 @pytest.mark.asyncio
-async def test_auth_success_with_dev_header(dev_settings: Settings):
+async def test_auth_success_with_dev_header(dev_settings: Settings, sample_user_context: UserContext):
     """Test valid identity header extracts and normalizes email and attaches to state."""
     app = create_test_app(dev_settings)
-    async with httpx.AsyncClient(
-        transport=httpx.ASGITransport(app=app),
-        base_url="http://testserver",
-    ) as client:
-        response = await client.get(
-            "/api/v1/protected",
-            headers={DEV_USER_EMAIL_HEADER: "  SanjayR9586@Gmail.Com  "},
-        )
-        assert response.status_code == status.HTTP_200_OK
-        data = response.json()
-        assert data["email"] == "sanjayr9586@gmail.com"
-        assert data["auth_method"] == "dev_header"
-        assert data["state_user_email"] == "sanjayr9586@gmail.com"
+    with patch(
+        "api.middleware.authentication.UserContextService.resolve_user_context",
+        new=AsyncMock(return_value=sample_user_context),
+    ):
+        async with httpx.AsyncClient(
+            transport=httpx.ASGITransport(app=app),
+            base_url="http://testserver",
+        ) as client:
+            response = await client.get(
+                "/api/v1/protected",
+                headers={DEV_USER_EMAIL_HEADER: "  SanjayR9586@Gmail.Com  "},
+            )
+            assert response.status_code == status.HTTP_200_OK
+            data = response.json()
+            assert data["email"] == "sanjayr9586@gmail.com"
+            assert data["auth_method"] == "dev_header"
+            assert data["state_user_email"] == "sanjayr9586@gmail.com"
 
 
 @pytest.mark.asyncio
-async def test_auth_success_via_fastapi_dependency(dev_settings: Settings):
+async def test_auth_success_via_fastapi_dependency(dev_settings: Settings, sample_user_context: UserContext):
     """Test get_current_identity dependency retrieves the resolved identity."""
     app = create_test_app(dev_settings)
-    async with httpx.AsyncClient(
-        transport=httpx.ASGITransport(app=app),
-        base_url="http://testserver",
-    ) as client:
-        response = await client.get(
-            "/api/v1/identity-via-dep",
-            headers={DEV_USER_EMAIL_HEADER: "elena.rostova.ai@gmail.com"},
-        )
-        assert response.status_code == status.HTTP_200_OK
-        data = response.json()
-        assert data["email"] == "elena.rostova.ai@gmail.com"
-        assert data["auth_method"] == "dev_header"
+    with patch(
+        "api.middleware.authentication.UserContextService.resolve_user_context",
+        new=AsyncMock(return_value=sample_user_context),
+    ):
+        async with httpx.AsyncClient(
+            transport=httpx.ASGITransport(app=app),
+            base_url="http://testserver",
+        ) as client:
+            response = await client.get(
+                "/api/v1/identity-via-dep",
+                headers={DEV_USER_EMAIL_HEADER: "elena.rostova.ai@gmail.com"},
+            )
+            assert response.status_code == status.HTTP_200_OK
+            data = response.json()
+            assert data["email"] == "elena.rostova.ai@gmail.com"
+            assert data["auth_method"] == "dev_header"
 
 
 @pytest.mark.asyncio
