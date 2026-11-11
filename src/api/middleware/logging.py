@@ -73,13 +73,16 @@ class RequestLoggingMiddleware:
             await self.app(scope, receive, send_wrapper)
         except Exception:
             duration_ms = round((time.perf_counter() - start_time) * 1000, 2)
-            logger.exception(
-                "http_request_failed",
-                method=method,
-                path=path,
-                status_code=500,
-                duration_ms=duration_ms,
-            )
+            state = scope.get("state", {})
+            err_kwargs: dict[str, Any] = {
+                "method": method,
+                "path": path,
+                "status_code": 500,
+                "duration_ms": duration_ms,
+            }
+            if "request_id" in state:
+                err_kwargs["request_id"] = state["request_id"]
+            logger.exception("http_request_failed", **err_kwargs)
             raise
         else:
             duration_ms = round((time.perf_counter() - start_time) * 1000, 2)
@@ -95,6 +98,9 @@ class RequestLoggingMiddleware:
                 "status_code": status_code,
                 "duration_ms": duration_ms,
             }
+
+            if "request_id" in state:
+                log_kwargs["request_id"] = state["request_id"]
 
             # Prefer user_id (UUID) to avoid logging PII where possible; include email if available
             if user_context and hasattr(user_context, "user_id"):

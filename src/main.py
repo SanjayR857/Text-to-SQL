@@ -6,6 +6,11 @@ Initialises the FastAPI app, registers middleware, routers, and exception handle
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from core.observability import setup_logging
+
+# Initialise structured logging early before downstream components/routers load
+setup_logging()
+
 from lifespan import lifespan
 from api import exception_handlers
 from api.middleware import request_id, logging as log_middleware, security_headers
@@ -33,10 +38,12 @@ app.add_middleware(
 
 # ---------------------------------------------------------------------------
 # Custom middleware (order matters – outermost wrapper is applied first)
+# RequestIdMiddleware must wrap RequestLoggingMiddleware so that the request ID
+# is bound to contextvars throughout the entire request logging lifecycle.
 # ---------------------------------------------------------------------------
 app.add_middleware(security_headers.SecurityHeadersMiddleware)
-app.add_middleware(log_middleware.RequestLoggingMiddleware)
 app.add_middleware(request_id.RequestIdMiddleware)
+app.add_middleware(log_middleware.RequestLoggingMiddleware)
 
 # ---------------------------------------------------------------------------
 # Routers

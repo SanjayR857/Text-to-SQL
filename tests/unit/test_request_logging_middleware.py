@@ -107,3 +107,29 @@ async def test_unhandled_exception_logs_failure(logging_app: FastAPI):
             assert kwargs["status_code"] == 500
             assert kwargs["path"] == "/api/v1/error"
             assert "duration_ms" in kwargs
+
+
+@pytest.mark.asyncio
+async def test_chained_request_id_and_logging_middleware_retains_request_id():
+    """Verify that when RequestIdMiddleware wraps RequestLoggingMiddleware, request_id is retained."""
+    from api.middleware.request_id import RequestIdMiddleware
+
+    app = FastAPI(title="Chained Middleware Test")
+    app.add_middleware(RequestIdMiddleware)
+    app.add_middleware(RequestLoggingMiddleware)
+
+    @app.get("/test")
+    async def endpoint():
+        return {"ok": True}
+
+    with patch("api.middleware.logging.logger.info") as mock_info:
+        async with httpx.AsyncClient(
+            transport=httpx.ASGITransport(app=app),
+            base_url="http://testserver",
+        ) as client:
+            res = await client.get("/test", headers={"x-request-id": "11111111-1111-1111-1111-111111111111"})
+            assert res.status_code == 200
+            mock_info.assert_called_once()
+            _, kwargs = mock_info.call_args
+            assert kwargs["request_id"] == "11111111-1111-1111-1111-111111111111"
+
